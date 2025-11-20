@@ -24,6 +24,7 @@
                 <li><a href="#audience" class="nav-link">Audience</a></li>
                 <li><a href="#diagram" class="nav-link">Diagram</a></li>
                 <li><a href="#applications" class="nav-link">Applications</a></li>
+                <li><a href="#resources" class="nav-link">Resources</a></li>
                 <li><a href="#team" class="nav-link">Team</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -50,6 +51,9 @@
             <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
                 <a href="https://github.com/yourusername/lifebeep" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                     <i class="fas fa-external-link-alt"></i> Open Project
+                </a>
+                <a href="static/images/Lifebeep(pptx).pptx" download="LifeBeep-Presentation.pptx" class="btn btn-download">
+                    <i class="fas fa-file-powerpoint"></i> Download PPT
                 </a>
                 <a href="#about" class="btn btn-secondary">
                     <i class="fas fa-info-circle"></i> Know More
@@ -259,10 +263,8 @@
             </div>
 
             <div class="diagram-container" data-aos="fade-up" data-aos-delay="200">
-                <div class="diagram-placeholder glass-card">
-                    <i class="fas fa-image"></i>
-                    <p>Block Diagram</p>
-                    <span class="note">Please add your block diagram image to static/images/block-diagram.png</span>
+                <div class="diagram-image glass-card">
+                    <img src="static/images/Block Diagram.png" alt="LifeBeep System Block Diagram">
                 </div>
             </div>
 
@@ -410,42 +412,194 @@
                 The Innovators Behind LifeBeep
             </div>
 
-            <div class="team-grid">
-                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="team-avatar">
-                        <i class="fas fa-user-circle"></i>
+            <!-- Guided By Section -->
+            <div class="guided-by-section" data-aos="fade-up" data-aos-delay="150">
+                <h3 class="guided-title">Guided By</h3>
+            </div>
+
+            <div class="staff-grid">
+                <div class="staff-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="staff-photo">
+                        <img src="static/images/team/dr-sentil-kumar.jpg" alt="Dr. T. Sentil Kumar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="staff-avatar-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
                     </div>
-                    <h3>Member 1</h3>
-                    <p class="role">Hardware Engineer</p>
-                    <p class="bio">IC 741 circuit design & analog signal processing</p>
+                    <h3>Dr. T. Sentil Kumar</h3>
+                    <p class="staff-role">Project Guide</p>
+                    <div class="staff-contacts">
+                        <a href="tel:+91XXXXXXXXXX" class="contact-link" title="Phone">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 XXXX XXX XXX</span>
+                        </a>
+                        <a href="mailto:sentilkumar@example.com" class="contact-link" title="Email">
+                            <i class="fas fa-envelope"></i>
+                            <span>sentilkumar@example.com</span>
+                        </a>
+                        <a href="https://scholar.google.com/" target="_blank" rel="noopener noreferrer" class="contact-link" title="Google Scholar">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Google Scholar</span>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="team-avatar">
-                        <i class="fas fa-user-circle"></i>
+                <div class="staff-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="staff-photo">
+                        <img src="static/images/team/dr-mariselvam.jpg" alt="Dr. V. Mariselvam" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="staff-avatar-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
                     </div>
-                    <h3>Member 2</h3>
+                    <h3>Dr. V. Mariselvam</h3>
+                    <p class="staff-role">Project Guide</p>
+                    <div class="staff-contacts">
+                        <a href="tel:+91XXXXXXXXXX" class="contact-link" title="Phone">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 XXXX XXX XXX</span>
+                        </a>
+                        <a href="mailto:mariselvam@example.com" class="contact-link" title="Email">
+                            <i class="fas fa-envelope"></i>
+                            <span>mariselvam@example.com</span>
+                        </a>
+                        <a href="https://scholar.google.com/" target="_blank" rel="noopener noreferrer" class="contact-link" title="Google Scholar">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Google Scholar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Members Section -->
+            <div class="team-members-section" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="team-members-title">Team Members</h3>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="team-photo">
+                        <img src="static\images\team\harish pranav.jpg" alt="Harish Pranav S" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="team-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                    </div>
+                    <h3>HARISH PRANAV S</h3>
+                    <p class="role">Project Lead</p>
+                    <p class="bio">Overall System integration & product development</p>
+                    <div class="member-contacts">
+                        <a href="tel:+91 7845693765" title="Phone"><i class="fas fa-phone"></i></a>
+                        <a href="mailto:harishpranav259@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="team-photo">
+                        <img src="static\images\team\harishwar.jpg" alt="HARISHWAR S" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="team-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                    </div>
+                    <h3>HARISHWAR S</h3>
                     <p class="role">Embedded Systems Developer</p>
                     <p class="bio">ESP32 programming & frequency analysis algorithms</p>
+                    <div class="member-contacts">
+                        <a href="tel:+91 7550381138" title="Phone"><i class="fas fa-phone"></i></a>
+                        <a href="mailto:harishwarharishwar47@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
                 </div>
 
-                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="team-avatar">
-                        <i class="fas fa-user-circle"></i>
+                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="team-photo">
+                        <img src="static/images/team/Hari Prasanth.jpg" alt="Hari Prasanth" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="team-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
                     </div>
-                    <h3>Member 3</h3>
+                    <h3>HARI PRASANTH K</h3>
                     <p class="role">UI/UX Designer</p>
                     <p class="bio">OLED interface design & user experience optimization</p>
+                    <div class="member-contacts">
+                        <a href="tel:+91 9597032247" title="Phone"><i class="fas fa-phone"></i></a>
+                        <a href="mailto:hariprasanthgk1@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
                 </div>
 
-                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="team-avatar">
-                        <i class="fas fa-user-circle"></i>
+                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="800">
+                    <div class="team-photo">
+                        <img src="static/images/team/hemanathan.jpg" alt="Hemanathan" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="team-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
                     </div>
-                    <h3>Member 4</h3>
-                    <p class="role">Project Lead</p>
-                    <p class="bio">System integration & product development</p>
+                    <h3>HEMANATHAN A</h3>
+                    <p class="role">Hardware Engineer</p>
+                    <p class="bio"> Circuit design and Analogue signal processing</p>
+                    <div class="member-contacts">
+                        <a href="tel:+91 7904175696" title="Phone"><i class="fas fa-phone"></i></a>
+                        <a href="mailto:hemanathan8337@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="section resources-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Project <span class="highlight">Resources</span></h2>
+            <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Download Our Presentation & Documentation
+            </div>
+
+            <div class="resources-grid">
+                <div class="resource-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-powerpoint"></i>
+                    </div>
+                    <h3>Project Presentation</h3>
+                    <p>Complete PowerPoint presentation covering all aspects of LifeBeep - system architecture, features, applications, and technical details.</p>
+                    <a href="static/images/Lifebeep(pptx).pptx" download="LifeBeep-Presentation.pptx" class="btn btn-download-large">
+                        <i class="fas fa-download"></i> Download PPT
+                    </a>
+                    <div class="file-info">
+                        <span><i class="fas fa-file"></i> PowerPoint</span>
+                        <span><i class="fas fa-calendar"></i> Updated 2025</span>
+                    </div>
+                </div>
+
+                <div class="resource-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="resource-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>Source Code</h3>
+                    <p>Access the complete source code, hardware schematics, ESP32 firmware, and documentation on our GitHub repository.</p>
+                    <a href="https://github.com/h4hypers/lifebeep" target="_blank" rel="noopener noreferrer" class="btn btn-download-large">
+                        <i class="fas fa-code-branch"></i> View on GitHub
+                    </a>
+                    <div class="file-info">
+                        <span><i class="fas fa-code"></i> Open Source</span>
+                        <span><i class="fas fa-star"></i> Free Access</span>
+                    </div>
+                </div>
+
+                <div class="resource-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="resource-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Block Diagram</h3>
+                    <p>High-resolution system architecture diagram showing the complete signal flow from sound detection to alert generation.</p>
+                    <a href="static/images/Block Diagram.png" download="LifeBeep-Block-Diagram.png" class="btn btn-download-large">
+                        <i class="fas fa-download"></i> Download Diagram
+                    </a>
+                    <div class="file-info">
+                        <span><i class="fas fa-image"></i> PNG Image</span>
+                        <span><i class="fas fa-expand"></i> High-Res</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resources-note" data-aos="fade-up" data-aos-delay="500">
+                <i class="fas fa-info-circle"></i>
+                <p>All resources are provided for educational and research purposes. Feel free to use them in presentations, reports, or academic work with proper attribution.</p>
             </div>
         </div>
     </section>
@@ -461,21 +615,43 @@
             <div class="contact-content">
                 <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
                     <div class="contact-card glass-card">
-                        <i class="fas fa-envelope"></i>
+                        <div class="contact-icon-wrapper">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Call Us</h3>
+                        <a href="tel:+917845693765" class="contact-detail">+91 78456 93765</a>
+                    </div>
+
+                    <div class="contact-card glass-card">
+                        <div class="contact-icon-wrapper">
+                            <i class="fas fa-envelope"></i>
+                        </div>
                         <h3>Email Us</h3>
-                        <p>teamh4.lifebeep@gmail.com</p>
+                        <a href="mailto:harishpranavs259@gmail.com" class="contact-detail">harishpranavs259@gmail.com</a>
+                        <a href="mailto:hemanathan8337@gmail.com" class="contact-detail">hemanathan8337@gmail.com</a>
                     </div>
 
                     <div class="contact-card glass-card">
-                        <i class="fas fa-github"></i>
+                        <div class="contact-icon-wrapper">
+                            <i class="fab fa-github"></i>
+                        </div>
                         <h3>GitHub</h3>
-                        <p>Open source project repository</p>
+                        <a href="https://github.com/h4hypers" target="_blank" rel="noopener noreferrer" class="contact-detail">
+                            <i class="fab fa-github"></i> h4hypers
+                        </a>
+                        <a href="https://github.com/hyprpranav" target="_blank" rel="noopener noreferrer" class="contact-detail">
+                            <i class="fab fa-github"></i> hyprpranav
+                        </a>
                     </div>
 
                     <div class="contact-card glass-card">
-                        <i class="fas fa-code"></i>
-                        <h3>Collaborate</h3>
-                        <p>Join us in making a difference</p>
+                        <div class="contact-icon-wrapper">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <h3>Instagram</h3>
+                        <a href="https://www.instagram.com/p_r_a_n_a_v.kvg/" target="_blank" rel="noopener noreferrer" class="contact-detail">
+                            <i class="fab fa-instagram"></i> @p_r_a_n_a_v.kvg
+                        </a>
                     </div>
                 </div>
 
@@ -525,7 +701,7 @@
                 <div class="footer-section">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="https://github.com/yourusername/lifebeep" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                        <li><a href="https://github.com/h4hypers" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                         <li><a href="#contact">Contact</a></li>
                         <li><a href="#diagram">Documentation</a></li>
                     </ul>
@@ -534,8 +710,8 @@
                 <div class="footer-section">
                     <h4>Connect</h4>
                     <div class="social-links">
-                        <a href="mailto:teamh4.lifebeep@gmail.com" title="Email us at teamh4.lifebeep@gmail.com"><i class="fas fa-envelope"></i></a>
-                        <a href="https://github.com/yourusername/lifebeep" target="_blank" rel="noopener noreferrer" title="Visit our GitHub repository"><i class="fab fa-github"></i></a>
+                        <a href="mailto:h4hypers@gmail.com" title="Email us at h4hypers@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/h4hypers" target="_blank" rel="noopener noreferrer" title="Visit our GitHub repository"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
