@@ -1,0 +1,452 @@
+/* ===================================
+   LIFEBEEP - PREMIUM INTRO ANIMATION
+   Sound Shockwave Watch Pulse
+   ================================== */
+
+/* Overlay Container */
+#intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0b0f25;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    animation: fadeOut 0.8s ease-out 2.5s forwards;
+}
+
+/* Prevent Scrolling During Animation */
+body.intro-active {
+    overflow: hidden;
+}
+
+/* Watch Container */
+.watch-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Watch Outline (Neon Circular Watch) */
+.watch-outline {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border: 4px solid transparent;
+    border-radius: 50%;
+    background: linear-gradient(#0b0f25, #0b0f25) padding-box,
+                linear-gradient(135deg, #00f6ff, #a855ff) border-box;
+    box-shadow: 
+        0 0 20px rgba(0, 246, 255, 0.6),
+        0 0 40px rgba(168, 85, 255, 0.4),
+        inset 0 0 20px rgba(0, 246, 255, 0.2);
+    animation: watchFadeIn 0.6s ease-out forwards,
+               watchGlow 0.4s ease-in-out 1.1s 3;
+    opacity: 0;
+}
+
+/* Watch Strap Lines */
+.watch-outline::before,
+.watch-outline::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(90deg, transparent, #00f6ff, #a855ff, transparent);
+    height: 3px;
+    width: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px rgba(0, 246, 255, 0.8);
+}
+
+.watch-outline::before {
+    right: 100%;
+    margin-right: 5px;
+}
+
+.watch-outline::after {
+    left: 100%;
+    margin-left: 5px;
+}
+
+/* Watch Inner Circle with LED */
+.watch-outline .led-center {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #00f6ff;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px #00f6ff, 0 0 30px #00f6ff;
+    animation: ledFlash 0.15s ease-in-out 1.1s 5;
+    z-index: 3;
+}
+
+/* Watch Hour Hand */
+.watch-outline .hour-hand {
+    position: absolute;
+    width: 4px;
+    height: 40px;
+    background: linear-gradient(180deg, #a855ff, #00f6ff);
+    border-radius: 2px;
+    top: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    transform: translate(-50%, -100%) rotate(0deg);
+    box-shadow: 0 0 10px rgba(168, 85, 255, 0.8);
+    animation: hourHandSpin 3s linear infinite;
+    z-index: 2;
+}
+
+/* Watch Minute Hand */
+.watch-outline .minute-hand {
+    position: absolute;
+    width: 3px;
+    height: 55px;
+    background: linear-gradient(180deg, #00f6ff, #06b6d4);
+    border-radius: 2px;
+    top: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    transform: translate(-50%, -100%) rotate(0deg);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.8);
+    animation: minuteHandSpin 2s linear infinite;
+    z-index: 2;
+}
+
+/* Signal Wave Source (Left Side) */
+.signal-source {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #00f6ff, #a855ff);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 30px #00f6ff, 0 0 60px #a855ff;
+    animation: sourcePulse 2s ease-in-out infinite;
+    z-index: 2;
+}
+
+/* Water Ripple Waves Traveling from Left */
+.water-wave {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 3px solid rgba(0, 246, 255, 0.9);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    animation: waveTravel 1.3s ease-out forwards;
+    z-index: 1;
+}
+
+.water-wave:nth-child(2) {
+    animation-delay: 0.2s;
+    border-color: rgba(168, 85, 255, 0.7);
+}
+
+.water-wave:nth-child(3) {
+    animation-delay: 0.4s;
+    border-color: rgba(6, 182, 212, 0.6);
+}
+
+.water-wave:nth-child(4) {
+    animation-delay: 0.6s;
+    border-color: rgba(0, 246, 255, 0.5);
+}
+
+/* Final Blast Shockwave */
+.final-ripple {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 5px solid rgba(0, 246, 255, 0.9);
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(0, 246, 255, 0.5) 0%,
+        rgba(168, 85, 255, 0.4) 25%,
+        rgba(6, 182, 212, 0.2) 50%,
+        transparent 75%
+    );
+    box-shadow: 
+        0 0 60px rgba(0, 246, 255, 1),
+        0 0 120px rgba(168, 85, 255, 0.8),
+        inset 0 0 60px rgba(0, 246, 255, 0.5);
+    animation: rippleExpand 1.0s ease-out 1.3s forwards;
+    opacity: 0;
+    transform: scale(0.3);
+}
+
+/* Floating Particles */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #00f6ff;
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 8px #00f6ff;
+    animation: particleFloat 3s ease-in-out infinite;
+}
+
+/* Generate particles with different delays and positions */
+.particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+.particle:nth-child(2) { top: 20%; left: 80%; animation-delay: 0.3s; }
+.particle:nth-child(3) { top: 70%; left: 10%; animation-delay: 0.6s; }
+.particle:nth-child(4) { top: 80%; left: 85%; animation-delay: 0.9s; }
+.particle:nth-child(5) { top: 30%; left: 50%; animation-delay: 1.2s; }
+.particle:nth-child(6) { top: 60%; left: 40%; animation-delay: 0.4s; }
+.particle:nth-child(7) { top: 15%; left: 70%; animation-delay: 0.7s; }
+.particle:nth-child(8) { top: 85%; left: 30%; animation-delay: 1.0s; }
+.particle:nth-child(9) { top: 40%; left: 20%; animation-delay: 0.5s; }
+.particle:nth-child(10) { top: 50%; left: 90%; animation-delay: 0.8s; }
+
+/* ===================================
+   KEYFRAME ANIMATIONS
+   ================================== */
+
+/* Watch Fade In */
+@keyframes watchFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Watch Glow Pulse During Vibration */
+@keyframes watchGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(0, 246, 255, 0.6),
+            0 0 40px rgba(168, 85, 255, 0.4),
+            inset 0 0 20px rgba(0, 246, 255, 0.2);
+    }
+    50% {
+        box-shadow: 
+            0 0 40px rgba(0, 246, 255, 1),
+            0 0 80px rgba(168, 85, 255, 0.8),
+            inset 0 0 40px rgba(0, 246, 255, 0.5);
+    }
+}
+
+/* LED Flash Effect */
+@keyframes ledFlash {
+    0%, 100% {
+        box-shadow: 0 0 15px #00f6ff, 0 0 30px #00f6ff;
+        background: #00f6ff;
+    }
+    50% {
+        box-shadow: 0 0 40px #00f6ff, 0 0 80px #a855ff, 0 0 120px #00f6ff;
+        background: #a855ff;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}
+
+/* Wave Travel Animation - From Left to Watch */
+@keyframes waveTravel {
+    0% {
+        width: 40px;
+        height: 40px;
+        left: 10%;
+        opacity: 0;
+        border-width: 4px;
+    }
+    10% {
+        opacity: 1;
+    }
+    80% {
+        width: 150px;
+        height: 150px;
+        left: calc(50% - 75px);
+        opacity: 0.8;
+        border-width: 2px;
+    }
+    100% {
+        width: 180px;
+        height: 180px;
+        left: calc(50% - 90px);
+        opacity: 0;
+        border-width: 1px;
+    }
+}
+
+/* Signal Source Pulse */
+@keyframes sourcePulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+        box-shadow: 0 0 30px #00f6ff, 0 0 60px #a855ff;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.3);
+        box-shadow: 0 0 50px #00f6ff, 0 0 100px #a855ff;
+    }
+}
+
+/* Particle Drift Animation */
+@keyframes particleDrift {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(200px);
+    }
+}
+
+/* Watch Vibration (Shake Effect) */
+@keyframes watchVibrate {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-3px, 2px) rotate(-1deg); }
+    20% { transform: translate(3px, -2px) rotate(1deg); }
+    30% { transform: translate(-2px, -3px) rotate(-0.5deg); }
+    40% { transform: translate(2px, 3px) rotate(0.5deg); }
+    50% { transform: translate(-3px, 1px) rotate(-1deg); }
+    60% { transform: translate(3px, -1px) rotate(1deg); }
+    70% { transform: translate(-2px, 2px) rotate(-0.5deg); }
+    80% { transform: translate(2px, -2px) rotate(0.5deg); }
+    90% { transform: translate(-1px, 1px) rotate(-0.3deg); }
+}
+
+/* Apply Vibration to Watch Container */
+.watch-container.vibrating {
+    animation: watchVibrate 0.4s ease-in-out 1.1s 2;
+}
+
+/* Blast Expansion - Explosive Effect */
+@keyframes rippleExpand {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+        border-width: 6px;
+    }
+    15% {
+        opacity: 1;
+        border-width: 5px;
+    }
+    100% {
+        transform: scale(12);
+        opacity: 0;
+        border-width: 0px;
+    }
+}
+
+/* Floating Particles Background */
+@keyframes particleFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0);
+    }
+    20% {
+        opacity: 0.6;
+    }
+    80% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) translateX(20px);
+    }
+}
+
+/* Overlay Fade Out */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   ================================== */
+
+@media (max-width: 768px) {
+    .watch-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .watch-outline {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .watch-outline::before,
+    .watch-outline::after {
+        width: 35px;
+    }
+    
+    .signal-source {
+        width: 16px;
+        height: 16px;
+        left: 8%;
+    }
+    
+    .hour-hand {
+        height: 32px;
+        width: 3px;
+    }
+    
+    .minute-hand {
+        height: 45px;
+        width: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .watch-container {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .watch-outline {
+        width: 100px;
+        height: 100px;
+        border-width: 3px;
+    }
+    
+    .pulse-wave {
+        height: 5px;
+    }
+}
+
+/* ===================================
+   PERFORMANCE OPTIMIZATION
+   ================================== */
+
+#intro-overlay,
+.watch-container,
+.watch-outline,
+.pulse-wave,
+.final-ripple,
+.particle {
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
