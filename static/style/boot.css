@@ -45,12 +45,15 @@ body.boot-active {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 3px solid #00f6ff;
-    border-radius: 8px;
+    border: 4px solid #00f6ff;
+    border-radius: 10px;
     box-shadow: 
-        0 0 20px rgba(0, 246, 255, 0.6),
-        inset 0 0 20px rgba(0, 246, 255, 0.2);
-    background: rgba(6, 11, 24, 0.8);
+        0 0 30px rgba(0, 246, 255, 0.9),
+        0 0 60px rgba(0, 246, 255, 0.5),
+        inset 0 0 30px rgba(0, 246, 255, 0.3),
+        inset 0 0 10px rgba(168, 85, 255, 0.2);
+    background: linear-gradient(135deg, rgba(6, 11, 24, 0.95), rgba(10, 15, 31, 0.95));
+    animation: icPulse 2s ease-in-out infinite;
 }
 
 /* IC Label Text */
@@ -62,20 +65,43 @@ body.boot-active {
     transform: translate(-50%, -50%);
     color: #00f6ff;
     font-family: 'Orbitron', monospace;
-    font-size: 16px;
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(0, 246, 255, 0.8);
-    letter-spacing: 2px;
+    font-size: 18px;
+    font-weight: 900;
+    text-shadow: 
+        0 0 15px rgba(0, 246, 255, 1),
+        0 0 30px rgba(0, 246, 255, 0.8),
+        0 0 45px rgba(0, 246, 255, 0.5);
+    letter-spacing: 3px;
+    animation: textGlow 2s ease-in-out infinite;
+}
+
+/* Text Glow Animation */
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 
+            0 0 15px rgba(0, 246, 255, 1),
+            0 0 30px rgba(0, 246, 255, 0.8),
+            0 0 45px rgba(0, 246, 255, 0.5);
+    }
+    50% {
+        text-shadow: 
+            0 0 25px rgba(0, 246, 255, 1),
+            0 0 50px rgba(0, 246, 255, 1),
+            0 0 75px rgba(0, 246, 255, 0.8);
+    }
 }
 
 /* IC Pins (Left Side) */
 .ic741-pin-left {
     position: absolute;
-    width: 15px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #a855ff);
-    left: -15px;
-    box-shadow: 0 0 8px rgba(168, 85, 255, 0.6);
+    width: 18px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #a855ff, #00f6ff);
+    left: -18px;
+    box-shadow: 
+        0 0 12px rgba(168, 85, 255, 0.8),
+        0 0 24px rgba(0, 246, 255, 0.4);
+    animation: pinPulse 1.5s ease-in-out infinite;
 }
 
 .ic741-pin-left:nth-child(1) { top: 20%; }
@@ -86,11 +112,30 @@ body.boot-active {
 /* IC Pins (Right Side) */
 .ic741-pin-right {
     position: absolute;
-    width: 15px;
-    height: 3px;
-    background: linear-gradient(90deg, #a855ff, transparent);
-    right: -15px;
-    box-shadow: 0 0 8px rgba(168, 85, 255, 0.6);
+    width: 18px;
+    height: 4px;
+    background: linear-gradient(90deg, #00f6ff, #a855ff, transparent);
+    right: -18px;
+    box-shadow: 
+        0 0 12px rgba(168, 85, 255, 0.8),
+        0 0 24px rgba(0, 246, 255, 0.4);
+    animation: pinPulse 1.5s ease-in-out infinite;
+}
+
+/* Pin Pulse Animation */
+@keyframes pinPulse {
+    0%, 100% {
+        opacity: 0.7;
+        box-shadow: 
+            0 0 12px rgba(168, 85, 255, 0.8),
+            0 0 24px rgba(0, 246, 255, 0.4);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 
+            0 0 20px rgba(168, 85, 255, 1),
+            0 0 40px rgba(0, 246, 255, 0.8);
+    }
 }
 
 .ic741-pin-right:nth-child(5) { top: 20%; }
@@ -100,7 +145,7 @@ body.boot-active {
 
 /* ===================================
    WAVEFORM INPUT (INTO IC)
-   ================================== */
+/* Waveform Input (INTO IC) */
 .waveform-in {
     position: absolute;
     left: 10%;
@@ -116,7 +161,38 @@ body.boot-active {
 .waveform-in svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 8px #00f6ff);
+    filter: 
+        drop-shadow(0 0 12px #00f6ff)
+        drop-shadow(0 0 24px rgba(0, 246, 255, 0.6))
+        drop-shadow(0 0 36px rgba(0, 246, 255, 0.3));
+}
+
+/* Waveform Particle Trail */
+.waveform-in::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #00f6ff, transparent);
+    border-radius: 50%;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 
+        0 0 15px #00f6ff,
+        0 0 30px rgba(0, 246, 255, 0.6);
+    animation: particleTrail 0.8s ease-out 0.7s infinite;
+}
+
+@keyframes particleTrail {
+    0% {
+        left: 0;
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
 }
 
 /* ===================================
@@ -208,14 +284,31 @@ body.boot-active {
     left: calc(50% + 70px);
     top: 50%;
     width: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #a855ff, #00f6ff);
+    height: 6px;
+    background: linear-gradient(90deg, #a855ff, #00f6ff, #a855ff);
     box-shadow: 
-        0 0 15px rgba(168, 85, 255, 0.8),
-        0 0 30px rgba(0, 246, 255, 0.6);
+        0 0 20px rgba(168, 85, 255, 1),
+        0 0 40px rgba(0, 246, 255, 0.8),
+        0 0 60px rgba(168, 85, 255, 0.5),
+        0 -10px 30px rgba(0, 246, 255, 0.4),
+        0 10px 30px rgba(168, 85, 255, 0.4);
     transform: translateY(-50%);
     opacity: 0;
     animation: beamShoot 0.4s ease-out 2.4s forwards;
+    border-radius: 3px;
+}
+
+/* Beam Core Glow */
+.beam::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #ffffff, #00f6ff, #ffffff);
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px #ffffff;
 }
 
 /* ===================================
@@ -241,12 +334,14 @@ body.boot-active {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 4px solid #00f6ff;
+    border: 5px solid #00f6ff;
     border-radius: 50%;
     box-shadow: 
-        0 0 30px rgba(0, 246, 255, 0.8),
-        inset 0 0 20px rgba(0, 246, 255, 0.3);
-    background: radial-gradient(circle, rgba(6, 11, 24, 0.9), transparent);
+        0 0 40px rgba(0, 246, 255, 1),
+        0 0 80px rgba(0, 246, 255, 0.6),
+        inset 0 0 30px rgba(0, 246, 255, 0.4),
+        inset 0 0 15px rgba(168, 85, 255, 0.3);
+    background: radial-gradient(circle, rgba(6, 11, 24, 0.95), rgba(10, 15, 31, 0.8));
 }
 
 /* Watch Alert Icon */
@@ -301,6 +396,24 @@ body.boot-active {
 /* ===================================
    KEYFRAME ANIMATIONS
    ================================== */
+
+/* IC Pulse Animation */
+@keyframes icPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 30px rgba(0, 246, 255, 0.9),
+            0 0 60px rgba(0, 246, 255, 0.5),
+            inset 0 0 30px rgba(0, 246, 255, 0.3),
+            inset 0 0 10px rgba(168, 85, 255, 0.2);
+    }
+    50% {
+        box-shadow: 
+            0 0 50px rgba(0, 246, 255, 1),
+            0 0 100px rgba(0, 246, 255, 0.7),
+            inset 0 0 50px rgba(0, 246, 255, 0.5),
+            inset 0 0 20px rgba(168, 85, 255, 0.4);
+    }
+}
 
 /* IC 741 Fade In */
 @keyframes ic741FadeIn {
@@ -411,9 +524,11 @@ body.boot-active {
 @keyframes watchFlash {
     0%, 100% {
         filter: brightness(1);
+        transform: translate(-50%, -50%) scale(1);
     }
     50% {
-        filter: brightness(3) drop-shadow(0 0 30px #00f6ff);
+        filter: brightness(5) drop-shadow(0 0 50px #00f6ff) drop-shadow(0 0 100px #a855ff);
+        transform: translate(-50%, -50%) scale(1.15);
     }
 }
 
