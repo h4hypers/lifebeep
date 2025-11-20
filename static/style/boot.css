@@ -1,0 +1,519 @@
+/* ===================================
+   LIFEBEEP BOOT ANIMATION
+   IC741 → ESP32 → Watch Boot Sequence
+   ================================== */
+
+/* Full-Screen Boot Overlay */
+#boot-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #060b18 0%, #0a0f1f 50%, #060b18 100%);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    animation: overlayFadeOut 0.8s ease-out 3.5s forwards;
+}
+
+/* Prevent Scrolling During Boot */
+body.boot-active {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* ===================================
+   IC 741 OPERATIONAL AMPLIFIER
+   ================================== */
+.ic741 {
+    position: absolute;
+    width: 120px;
+    height: 80px;
+    left: 30%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: ic741FadeIn 0.5s ease-out 0.3s forwards;
+}
+
+/* IC Body Outline */
+.ic741::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #00f6ff;
+    border-radius: 8px;
+    box-shadow: 
+        0 0 20px rgba(0, 246, 255, 0.6),
+        inset 0 0 20px rgba(0, 246, 255, 0.2);
+    background: rgba(6, 11, 24, 0.8);
+}
+
+/* IC Label Text */
+.ic741::after {
+    content: 'IC 741';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00f6ff;
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 246, 255, 0.8);
+    letter-spacing: 2px;
+}
+
+/* IC Pins (Left Side) */
+.ic741-pin-left {
+    position: absolute;
+    width: 15px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #a855ff);
+    left: -15px;
+    box-shadow: 0 0 8px rgba(168, 85, 255, 0.6);
+}
+
+.ic741-pin-left:nth-child(1) { top: 20%; }
+.ic741-pin-left:nth-child(2) { top: 40%; }
+.ic741-pin-left:nth-child(3) { top: 60%; }
+.ic741-pin-left:nth-child(4) { top: 80%; }
+
+/* IC Pins (Right Side) */
+.ic741-pin-right {
+    position: absolute;
+    width: 15px;
+    height: 3px;
+    background: linear-gradient(90deg, #a855ff, transparent);
+    right: -15px;
+    box-shadow: 0 0 8px rgba(168, 85, 255, 0.6);
+}
+
+.ic741-pin-right:nth-child(5) { top: 20%; }
+.ic741-pin-right:nth-child(6) { top: 40%; }
+.ic741-pin-right:nth-child(7) { top: 60%; }
+.ic741-pin-right:nth-child(8) { top: 80%; }
+
+/* ===================================
+   WAVEFORM INPUT (INTO IC)
+   ================================== */
+.waveform-in {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    width: 150px;
+    height: 60px;
+    transform: translateY(-50%);
+    opacity: 0;
+    animation: waveformInAnimate 0.8s ease-out 0.7s forwards;
+}
+
+/* Waveform Path */
+.waveform-in svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 8px #00f6ff);
+}
+
+/* ===================================
+   WAVEFORM OUTPUT (FROM IC)
+   ================================== */
+.waveform-out {
+    position: absolute;
+    left: calc(30% + 60px);
+    top: 50%;
+    width: 120px;
+    height: 50px;
+    transform: translateY(-50%);
+    opacity: 0;
+    animation: waveformOutAnimate 0.6s ease-out 1.3s forwards;
+}
+
+.waveform-out svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px #a855ff);
+}
+
+/* ===================================
+   ESP32 MICROCONTROLLER
+   ================================== */
+.esp32 {
+    position: absolute;
+    width: 140px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: esp32FadeIn 0.5s ease-out 1.6s forwards;
+}
+
+/* ESP32 PCB Outline */
+.esp32::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #a855ff;
+    border-radius: 12px;
+    box-shadow: 
+        0 0 25px rgba(168, 85, 255, 0.7),
+        inset 0 0 25px rgba(168, 85, 255, 0.3);
+    background: rgba(10, 15, 31, 0.9);
+    animation: esp32Glow 1.5s ease-in-out 1.8s infinite;
+}
+
+/* ESP32 Label */
+.esp32::after {
+    content: 'ESP32';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #a855ff;
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    text-shadow: 0 0 12px rgba(168, 85, 255, 0.9);
+    letter-spacing: 3px;
+}
+
+/* Wi-Fi Icon */
+.wifi-icon {
+    position: absolute;
+    top: -15px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    animation: wifiBlink 0.3s ease-in-out 2.0s 5;
+}
+
+.wifi-icon::before {
+    content: '📶';
+    font-size: 20px;
+    filter: drop-shadow(0 0 10px #00f6ff);
+}
+
+/* ===================================
+   NEON BEAM (ESP32 → WATCH)
+   ================================== */
+.beam {
+    position: absolute;
+    left: calc(50% + 70px);
+    top: 50%;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #a855ff, #00f6ff);
+    box-shadow: 
+        0 0 15px rgba(168, 85, 255, 0.8),
+        0 0 30px rgba(0, 246, 255, 0.6);
+    transform: translateY(-50%);
+    opacity: 0;
+    animation: beamShoot 0.4s ease-out 2.4s forwards;
+}
+
+/* ===================================
+   WATCH OUTLINE
+   ================================== */
+.watch {
+    position: absolute;
+    left: 70%;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: 
+        watchAppear 0.3s ease-out 2.6s forwards,
+        watchRotate 0.5s ease-in-out 2.9s forwards,
+        watchFlash 0.2s ease-in-out 3.3s 3;
+}
+
+/* Watch Circle */
+.watch::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #00f6ff;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 30px rgba(0, 246, 255, 0.8),
+        inset 0 0 20px rgba(0, 246, 255, 0.3);
+    background: radial-gradient(circle, rgba(6, 11, 24, 0.9), transparent);
+}
+
+/* Watch Alert Icon */
+.watch::after {
+    content: '🔔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    filter: drop-shadow(0 0 15px #00f6ff);
+}
+
+/* Watch Straps */
+.watch-strap-left,
+.watch-strap-right {
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(90deg, transparent, #a855ff);
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px rgba(168, 85, 255, 0.6);
+}
+
+.watch-strap-left {
+    right: 100%;
+    border-radius: 10px 0 0 10px;
+}
+
+.watch-strap-right {
+    left: 100%;
+    border-radius: 0 10px 10px 0;
+    background: linear-gradient(90deg, #a855ff, transparent);
+}
+
+/* ===================================
+   SCREEN FLASH EFFECT
+   ================================== */
+.screen-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #ffffff, #00f6ff);
+    opacity: 0;
+    animation: flashScreen 0.3s ease-out 3.5s forwards;
+    pointer-events: none;
+}
+
+/* ===================================
+   KEYFRAME ANIMATIONS
+   ================================== */
+
+/* IC 741 Fade In */
+@keyframes ic741FadeIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Waveform In Animation */
+@keyframes waveformInAnimate {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+/* Waveform Out Animation */
+@keyframes waveformOutAnimate {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+/* ESP32 Fade In */
+@keyframes esp32FadeIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* ESP32 Glow Pulse */
+@keyframes esp32Glow {
+    0%, 100% {
+        box-shadow: 
+            0 0 25px rgba(168, 85, 255, 0.7),
+            inset 0 0 25px rgba(168, 85, 255, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 40px rgba(168, 85, 255, 1),
+            inset 0 0 40px rgba(168, 85, 255, 0.5);
+    }
+}
+
+/* Wi-Fi Blink */
+@keyframes wifiBlink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+/* Beam Shoot */
+@keyframes beamShoot {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        width: 120px;
+        opacity: 1;
+    }
+}
+
+/* Watch Appear */
+@keyframes watchAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Watch Rotate */
+@keyframes watchRotate {
+    0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    }
+}
+
+/* Watch Flash */
+@keyframes watchFlash {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(3) drop-shadow(0 0 30px #00f6ff);
+    }
+}
+
+/* Screen Flash */
+@keyframes flashScreen {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Overlay Fade Out */
+@keyframes overlayFadeOut {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   ================================== */
+@media (max-width: 768px) {
+    .ic741 {
+        width: 90px;
+        height: 60px;
+        left: 25%;
+    }
+    
+    .ic741::after {
+        font-size: 12px;
+    }
+    
+    .esp32 {
+        width: 110px;
+        height: 80px;
+    }
+    
+    .esp32::after {
+        font-size: 14px;
+    }
+    
+    .watch {
+        width: 80px;
+        height: 80px;
+        left: 75%;
+    }
+    
+    .watch::after {
+        font-size: 24px;
+    }
+    
+    .waveform-in,
+    .waveform-out {
+        width: 100px;
+        height: 40px;
+    }
+    
+    .beam {
+        width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ic741 {
+        width: 70px;
+        height: 50px;
+        left: 20%;
+    }
+    
+    .ic741::after {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+    
+    .esp32 {
+        width: 90px;
+        height: 65px;
+    }
+    
+    .esp32::after {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+    
+    .watch {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .watch::after {
+        font-size: 20px;
+    }
+}
