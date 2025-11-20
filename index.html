@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeBeep - Intelligent Sound Alert Watch</title>
+    <link rel="stylesheet" href="static/style/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-container"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Life<span class="highlight">Beep</span></span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#problem" class="nav-link">Problem</a></li>
+                <li><a href="#audience" class="nav-link">Audience</a></li>
+                <li><a href="#diagram" class="nav-link">Diagram</a></li>
+                <li><a href="#applications" class="nav-link">Applications</a></li>
+                <li><a href="#team" class="nav-link">Team</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title glow-text" data-aos="fade-up">
+                Life<span class="highlight">Beep</span>
+            </h1>
+            <p class="hero-tagline" data-aos="fade-up" data-aos-delay="100">
+                Hear What Matters. React in Time.
+            </p>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
+                A wearable intelligent sound-alert watch designed for the hearing-impaired.
+            </p>
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+                <a href="https://github.com/yourusername/lifebeep" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i> Open Project
+                </a>
+                <a href="#about" class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i> Know More
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About <span class="highlight">LifeBeep</span></h2>
+            <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Your Personal Sound Guardian
+            </div>
+
+            <div class="about-content">
+                <div class="about-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Real-Time Sound Detection</h3>
+                    <p>Uses an advanced microphone module to capture surrounding sounds continuously, ensuring no critical alert is missed.</p>
+                </div>
+
+                <div class="about-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h3>IC 741 Analog Band-Pass Filter</h3>
+                    <p>Custom-built analog op-amp circuit filters specific frequency ranges (1.8-2.3V threshold) to detect loud noise events with precision.</p>
+                </div>
+
+                <div class="about-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>ESP32 Processing Power</h3>
+                    <p>The ESP32 microcontroller performs advanced frequency analysis and decision-making to classify sound types in real-time.</p>
+                </div>
+
+                <div class="about-card glass-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Multi-Modal Alerts</h3>
+                    <p>Vibration motor, LED flash, OLED display, and optional buzzer work together to ensure you never miss an important sound.</p>
+                </div>
+
+                <div class="about-card glass-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24/7 Wearable Design</h3>
+                    <p>Designed as a comfortable watch-style wearable device that provides continuous protection day and night.</p>
+                </div>
+
+                <div class="about-card glass-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Instant Safety Response</h3>
+                    <p>From sound detection to alert notification in milliseconds, ensuring rapid response to emergency situations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement Section -->
+    <section id="problem" class="section problem-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Why <span class="highlight">LifeBeep</span>?</h2>
+            <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Solving Critical Limitations of Traditional Hearing Aids
+            </div>
+
+            <div class="problem-grid">
+                <div class="problem-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="problem-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3>Sleep Protection</h3>
+                    <p class="problem-text">Hearing aids don't work during sleep</p>
+                    <div class="solution-badge">
+                        <i class="fas fa-check-circle"></i> LifeBeep vibrates even at night
+                    </div>
+                </div>
+
+                <div class="problem-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="problem-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Danger Warning</h3>
+                    <p class="problem-text">Hearing aids don't warn about danger</p>
+                    <div class="solution-badge">
+                        <i class="fas fa-check-circle"></i> LifeBeep alerts you instantly
+                    </div>
+                </div>
+
+                <div class="problem-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="problem-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Affordable Solution</h3>
+                    <p class="problem-text">Hearing aids are extremely costly</p>
+                    <div class="solution-badge">
+                        <i class="fas fa-check-circle"></i> LifeBeep is 100× cheaper
+                    </div>
+                </div>
+
+                <div class="problem-card glass-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="problem-icon">
+                        <i class="fas fa-deaf"></i>
+                    </div>
+                    <h3>Total Deafness Support</h3>
+                    <p class="problem-text">Hearing aids don't help fully deaf people</p>
+                    <div class="solution-badge">
+                        <i class="fas fa-check-circle"></i> LifeBeep works without hearing
+                    </div>
+                </div>
+
+                <div class="problem-card glass-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="problem-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Non-Audio Alerts</h3>
+                    <p class="problem-text">Hearing aids cannot give non-audio alerts</p>
+                    <div class="solution-badge">
+                        <i class="fas fa-check-circle"></i> Vibration + LED alerts
+                    </div>
+                </div>
+
+                <div class="problem-card glass-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="problem-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>No Medical Fitting</h3>
+                    <p class="problem-text">Hearing aids require medical fitting</p>
+                    <div class="solution-badge">
+                        <i class="fas fa-check-circle"></i> Simple wearable & independent
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section id="audience" class="section audience-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Target <span class="highlight">Audience</span></h2>
+            <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Built for Fully and Partially Hearing-Impaired Users
+            </div>
+
+            <div class="audience-content">
+                <div class="chart-container glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <canvas id="audienceChart"></canvas>
+                </div>
+
+                <div class="audience-info" data-aos="fade-up" data-aos-delay="300">
+                    <div class="audience-card glass-card">
+                        <div class="audience-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>8% Congenitally Deaf</h3>
+                        <p>Born with complete hearing loss - LifeBeep provides tactile and visual alerts without requiring any hearing ability.</p>
+                    </div>
+
+                    <div class="audience-card glass-card">
+                        <div class="audience-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3>12% Partial Congenital Impairment</h3>
+                        <p>Born with partial hearing loss - LifeBeep supplements limited hearing with reliable multi-modal alerts.</p>
+                    </div>
+
+                    <div class="audience-card glass-card">
+                        <div class="audience-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>30% Other Impairments</h3>
+                        <p>Age-related, accident-induced, or disease-related hearing loss - LifeBeep offers independence and safety.</p>
+                    </div>
+
+                    <div class="highlight-box glass-card">
+                        <i class="fas fa-bullseye"></i>
+                        <p><strong>Primary Focus:</strong> LifeBeep targets the 20% of the population with complete or partial hearing impairment, offering an affordable, wearable solution for enhanced safety and independence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Block Diagram Section -->
+    <section id="diagram" class="section diagram-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">System <span class="highlight">Architecture</span></h2>
+            <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                How LifeBeep Works: From Sound to Alert
+            </div>
+
+            <div class="diagram-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="diagram-placeholder glass-card">
+                    <i class="fas fa-image"></i>
+                    <p>Block Diagram</p>
+                    <span class="note">Please add your block diagram image to static/images/block-diagram.png</span>
+                </div>
+            </div>
+
+            <div class="diagram-explanation">
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-volume-up"></i> Surrounding Sound Source</h3>
+                        <p>Environmental sounds (car horn, fire alarm, baby crying, etc.) are emitted in the user's vicinity.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-microphone"></i> Microphone Module</h3>
+                        <p>High-sensitivity microphone captures acoustic signals and converts them to electrical signals.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-wave-square"></i> IC 741 Analog Band-Pass Filter</h3>
+                        <p>Custom op-amp circuit filters signals between 1.8-2.3V threshold, isolating loud noise events.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-microchip"></i> ESP32 Frequency Analysis</h3>
+                        <p>Microcontroller processes filtered signals, performs frequency analysis, and classifies sound types.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-brain"></i> Decision Unit</h3>
+                        <p>Intelligent logic determines threat level and triggers appropriate alert mechanisms.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="800">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-desktop"></i> OLED Display</h3>
+                        <p>Visual feedback shows sound type, alert level, and system status with animations.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="900">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-mobile-alt"></i> Vibration Motor</h3>
+                        <p>Tactile alert through wrist vibration - works 24/7, even during sleep.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="1000">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-lightbulb"></i> LED Indicator</h3>
+                        <p>Visual safety signal with color-coded alerts (red = danger, yellow = warning, green = safe).</p>
+                    </div>
+                </div>
+
+                <div class="diagram-step glass-card" data-aos="fade-up" data-aos-delay="1100">
+                    <div class="step-number">9</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-user"></i> User (Hearing-Impaired Person)</h3>
+                        <p>Receives multi-modal alerts and can respond appropriately to environmental sounds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Section -->
+    <section id="applications" class="section applications-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Real-World <span class="highlight">Applications</span></h2>
+            <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                LifeBeep in Action
+            </div>
+
+            <div class="applications-grid">
+                <div class="app-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="app-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Home Safety</h3>
+                    <p>Doorbell alerts, phone ringing, smoke alarms, gas leak warnings, and intruder detection for secure living.</p>
+                </div>
+
+                <div class="app-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="app-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Roadside Alerts</h3>
+                    <p>Car horns, truck honks, ambulance sirens, and traffic warnings for pedestrian safety.</p>
+                </div>
+
+                <div class="app-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="app-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Fire Alarm Detection</h3>
+                    <p>Instant notification of fire alarms and emergency evacuation signals in buildings.</p>
+                </div>
+
+                <div class="app-card glass-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="app-icon">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h3>Baby Crying Alert</h3>
+                    <p>Monitors infant sounds and alerts parents who are hearing-impaired for timely care.</p>
+                </div>
+
+                <div class="app-card glass-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="app-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3>School/College Campus</h3>
+                    <p>Bell notifications, announcements, and emergency alerts for educational environments.</p>
+                </div>
+
+                <div class="app-card glass-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="app-icon">
+                        <i class="fas fa-user-nurse"></i>
+                    </div>
+                    <h3>Elderly Care</h3>
+                    <p>Continuous monitoring for senior citizens with hearing loss, ensuring timely assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section team-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Team <span class="highlight">H-4</span></h2>
+            <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                The Innovators Behind LifeBeep
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3>Member 1</h3>
+                    <p class="role">Hardware Engineer</p>
+                    <p class="bio">IC 741 circuit design & analog signal processing</p>
+                </div>
+
+                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3>Member 2</h3>
+                    <p class="role">Embedded Systems Developer</p>
+                    <p class="bio">ESP32 programming & frequency analysis algorithms</p>
+                </div>
+
+                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="team-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3>Member 3</h3>
+                    <p class="role">UI/UX Designer</p>
+                    <p class="bio">OLED interface design & user experience optimization</p>
+                </div>
+
+                <div class="team-card glass-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="team-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3>Member 4</h3>
+                    <p class="role">Project Lead</p>
+                    <p class="bio">System integration & product development</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Get in <span class="highlight">Touch</span></h2>
+            <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                We'd Love to Hear From You
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-card glass-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email Us</h3>
+                        <p>teamh4.lifebeep@gmail.com</p>
+                    </div>
+
+                    <div class="contact-card glass-card">
+                        <i class="fas fa-github"></i>
+                        <h3>GitHub</h3>
+                        <p>Open source project repository</p>
+                    </div>
+
+                    <div class="contact-card glass-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Collaborate</h3>
+                        <p>Join us in making a difference</p>
+                    </div>
+                </div>
+
+                <form class="contact-form glass-card" data-aos="fade-up" data-aos-delay="300" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Life<span class="highlight">Beep</span></h3>
+                    <p>Intelligent Sound for a Silent World</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#applications">Applications</a></li>
+                        <li><a href="#team">Team</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/yourusername/lifebeep" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#diagram">Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="mailto:teamh4.lifebeep@gmail.com" title="Email us at teamh4.lifebeep@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/yourusername/lifebeep" target="_blank" rel="noopener noreferrer" title="Visit our GitHub repository"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Team H-4. All rights reserved. | LifeBeep - Making the world safer for everyone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ESP32 Configuration Modal -->
+    <div id="esp32Modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="modal-close">&times;</span>
+            <h2>Configure ESP32 Device</h2>
+            <div class="form-group">
+                <label for="esp32IP">ESP32 IP Address</label>
+                <input type="text" id="esp32IP" placeholder="192.168.1.100">
+            </div>
+            <button class="btn btn-primary" id="saveESP32Config">
+                <i class="fas fa-save"></i> Save Configuration
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="static/script/main.js"></script>
+    <script src="static/script/esp32.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
