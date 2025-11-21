@@ -894,6 +894,13 @@ body::before {
     margin-bottom: 3rem;
 }
 
+/* Dashboard Images Column */
+.dashboard-images-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
 /* Dashboard Image */
 .dashboard-image-wrapper {
     position: relative;
@@ -938,12 +945,27 @@ body::before {
     animation: badgePulse 2s ease-in-out infinite;
 }
 
+.settings-badge {
+    background: rgba(168, 85, 247, 0.9);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    animation: badgePulseSettings 2s ease-in-out infinite;
+}
+
 @keyframes badgePulse {
     0%, 100% {
         box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
     }
     50% {
         box-shadow: 0 4px 25px rgba(16, 185, 129, 0.7);
+    }
+}
+
+@keyframes badgePulseSettings {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(168, 85, 247, 0.7);
     }
 }
 
@@ -1740,6 +1762,10 @@ body::before {
     .contact-content,
     .dashboard-content {
         grid-template-columns: 1fr;
+    }
+    
+    .dashboard-images-column {
+        gap: 1.5rem;
     }
 }
 
