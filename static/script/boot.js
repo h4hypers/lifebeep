@@ -1,7 +1,7 @@
 /**
- * LifeBeep Boot Animation Controller
- * IC741 → ESP32 → Watch Boot Sequence
- * Pure JavaScript - No Dependencies
+ * LifeBeep Boot Animation Controller - REDESIGNED
+ * Sound Wave → Microphone → IC741 → ESP32 → Watch → Website
+ * Proper Signal Flow Representation
  */
 
 (function() {
@@ -9,9 +9,9 @@
 
     // Configuration
     const CONFIG = {
-        totalDuration: 4000,      // 4 seconds total
-        removeDelay: 4000,        // Remove overlay after 4s
-        enableScroll: true        // Re-enable scroll after animation
+        totalDuration: 5500,      // 5.5 seconds total
+        removeDelay: 6000,         // Remove overlay after 6s
+        enableScroll: true         // Re-enable scroll after animation
     };
 
     /**
@@ -39,70 +39,84 @@
         overlay.id = 'boot-overlay';
         
         overlay.innerHTML = `
-            <!-- IC 741 Operational Amplifier -->
-            <div class="ic741">
-                <div class="ic741-pin-left"></div>
-                <div class="ic741-pin-left"></div>
-                <div class="ic741-pin-left"></div>
-                <div class="ic741-pin-left"></div>
-                <div class="ic741-pin-right"></div>
-                <div class="ic741-pin-right"></div>
-                <div class="ic741-pin-right"></div>
-                <div class="ic741-pin-right"></div>
+            <div class="signal-flow">
+                <!-- 1. Sound Wave Source -->
+                <div class="sound-source">
+                    <div class="sound-ripple"></div>
+                    <div class="sound-ripple"></div>
+                    <div class="sound-ripple"></div>
+                    <div class="sound-icon">🔊</div>
+                </div>
+                
+                <!-- Wave Path from Sound to Mic -->
+                <div class="wave-path-1">
+                    <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 0 40 Q 25 20, 50 40 T 100 40 T 150 40 T 200 40" 
+                              stroke="#06b6d4" 
+                              stroke-width="3" 
+                              fill="none" 
+                              stroke-linecap="round"/>
+                    </svg>
+                    <div class="wave-particle"></div>
+                </div>
+                
+                <!-- 2. Microphone Module -->
+                <div class="microphone">
+                    <div class="mic-body"></div>
+                    <div class="mic-stand"></div>
+                </div>
+                
+                <!-- Connection Line 1 -->
+                <div class="connection-line line-1"></div>
+                <div class="data-particle data-particle-1"></div>
+                
+                <!-- 3. IC741 Operational Amplifier -->
+                <div class="ic741">
+                    <div class="ic-body"></div>
+                    <div class="ic-label">IC741</div>
+                    <div class="ic-pins-left">
+                        <div class="ic-pin"></div>
+                        <div class="ic-pin"></div>
+                        <div class="ic-pin"></div>
+                        <div class="ic-pin"></div>
+                    </div>
+                    <div class="ic-pins-right">
+                        <div class="ic-pin"></div>
+                        <div class="ic-pin"></div>
+                        <div class="ic-pin"></div>
+                        <div class="ic-pin"></div>
+                    </div>
+                </div>
+                
+                <!-- Connection Line 2 -->
+                <div class="connection-line line-2"></div>
+                <div class="data-particle data-particle-2"></div>
+                
+                <!-- 4. ESP32 Microcontroller -->
+                <div class="esp32">
+                    <div class="esp32-board"></div>
+                    <div class="esp32-chip">
+                        <div class="esp32-label">ESP32</div>
+                    </div>
+                    <div class="wifi-indicator"></div>
+                </div>
+                
+                <!-- Connection Line 3 -->
+                <div class="connection-line line-3"></div>
+                <div class="data-particle data-particle-3"></div>
+                
+                <!-- 5. Smartwatch with Notification -->
+                <div class="smartwatch">
+                    <div class="watch-strap-top"></div>
+                    <div class="watch-face">
+                        <div class="notification-bell">🔔</div>
+                    </div>
+                    <div class="watch-strap-bottom"></div>
+                </div>
+                
+                <!-- Final Flash Effect -->
+                <div class="website-flash"></div>
             </div>
-            
-            <!-- Input Waveform (Raw Signal) -->
-            <div class="waveform-in">
-                <svg viewBox="0 0 150 60" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 0 30 Q 15 10, 30 30 T 60 30 T 90 30 T 120 30 T 150 30" 
-                          stroke="#00f6ff" 
-                          stroke-width="3" 
-                          fill="none" 
-                          stroke-linecap="round">
-                        <animate attributeName="d" 
-                                 dur="0.5s" 
-                                 repeatCount="indefinite"
-                                 values="M 0 30 Q 15 10, 30 30 T 60 30 T 90 30 T 120 30 T 150 30;
-                                         M 0 30 Q 15 50, 30 30 T 60 30 T 90 30 T 120 30 T 150 30;
-                                         M 0 30 Q 15 10, 30 30 T 60 30 T 90 30 T 120 30 T 150 30" />
-                    </path>
-                </svg>
-            </div>
-            
-            <!-- Output Waveform (Filtered Signal) -->
-            <div class="waveform-out">
-                <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 0 25 Q 20 15, 40 25 T 80 25 T 120 25" 
-                          stroke="#a855ff" 
-                          stroke-width="3" 
-                          fill="none" 
-                          stroke-linecap="round">
-                        <animate attributeName="d" 
-                                 dur="0.4s" 
-                                 repeatCount="indefinite"
-                                 values="M 0 25 Q 20 15, 40 25 T 80 25 T 120 25;
-                                         M 0 25 Q 20 35, 40 25 T 80 25 T 120 25;
-                                         M 0 25 Q 20 15, 40 25 T 80 25 T 120 25" />
-                    </path>
-                </svg>
-            </div>
-            
-            <!-- ESP32 Microcontroller -->
-            <div class="esp32">
-                <div class="wifi-icon"></div>
-            </div>
-            
-            <!-- Neon Beam -->
-            <div class="beam"></div>
-            
-            <!-- Watch -->
-            <div class="watch">
-                <div class="watch-strap-left"></div>
-                <div class="watch-strap-right"></div>
-            </div>
-            
-            <!-- Screen Flash Effect -->
-            <div class="screen-flash"></div>
         `;
         
         return overlay;
@@ -112,67 +126,50 @@
      * Remove boot overlay and restore scroll
      */
     function removeBootOverlay(overlay) {
-        if (!overlay) return;
-        
         // Re-enable scrolling
-        if (CONFIG.enableScroll) {
-            document.body.classList.remove('boot-active');
-        }
+        document.body.classList.remove('boot-active');
         
         // Remove overlay from DOM
-        setTimeout(() => {
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
-        }, 100);
+        if (overlay && overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
+        }
         
-        // Dispatch completion event
+        // Trigger custom event for completion
         triggerBootComplete();
     }
 
     /**
-     * Trigger custom event when boot completes
+     * Trigger custom boot complete event
      */
     function triggerBootComplete() {
-        const event = new CustomEvent('bootComplete', {
+        const event = new CustomEvent('lifebeep-boot-complete', {
             detail: {
-                timestamp: Date.now(),
-                duration: CONFIG.totalDuration
+                duration: CONFIG.totalDuration,
+                timestamp: Date.now()
             }
         });
-        window.dispatchEvent(event);
+        document.dispatchEvent(event);
     }
 
     /**
-     * Optional: Check if boot animation should run
-     * (e.g., skip for returning visitors)
+     * Public API for manual restart (debugging)
      */
-    function shouldShowBoot() {
-        // For now, always show boot animation
-        // Could add localStorage check: localStorage.getItem('bootShown')
-        return true;
-    }
+    window.LifeBeepBoot = {
+        restart: function() {
+            const existingOverlay = document.getElementById('boot-overlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+            document.body.classList.remove('boot-active');
+            setTimeout(initBootAnimation, 100);
+        }
+    };
 
-    /**
-     * Optional: Enable skip on click/tap
-     */
-    function enableSkipOnClick(overlay) {
-        overlay.addEventListener('click', () => {
-            removeBootOverlay(overlay);
-        }, { once: true });
-    }
-
-    // Initialize on DOM ready
+    // Auto-initialize when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initBootAnimation);
     } else {
         initBootAnimation();
     }
-
-    // Expose for debugging/manual control
-    window.LifeBeepBoot = {
-        restart: initBootAnimation,
-        config: CONFIG
-    };
 
 })();

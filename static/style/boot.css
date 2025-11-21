@@ -1,6 +1,7 @@
 /* ===================================
-   LIFEBEEP BOOT ANIMATION
-   IC741 → ESP32 → Watch Boot Sequence
+   LIFEBEEP BOOT ANIMATION - COMPLETE REDESIGN
+   Sound Wave → Microphone → IC741 → ESP32 → Watch → Website
+   Realistic Signal Flow Representation
    ================================== */
 
 /* Full-Screen Boot Overlay */
@@ -10,13 +11,20 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(135deg, #060b18 0%, #0a0f1f 50%, #060b18 100%);
+    background: radial-gradient(ellipse at center, #0a0f1f 0%, #060b18 100%);
     z-index: 99999;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    animation: overlayFadeOut 0.8s ease-out 3.5s forwards;
+    animation: overlayFadeOut 0.8s ease-out 5.5s forwards;
+}
+
+@keyframes overlayFadeOut {
+    to {
+        opacity: 0;
+        pointer-events: none;
+    }
 }
 
 /* Prevent Scrolling During Boot */
@@ -26,645 +34,999 @@ body.boot-active {
 }
 
 /* ===================================
-   IC 741 OPERATIONAL AMPLIFIER
+   SIGNAL FLOW CONTAINER
    ================================== */
-.ic741 {
-    position: absolute;
-    width: 120px;
-    height: 80px;
-    left: 25%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.signal-flow {
+    position: relative;
+    width: 90%;
+    max-width: 1400px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+/* ===================================
+   1. SOUND WAVE SOURCE (LEFT)
+   ================================== */
+.sound-source {
+    position: relative;
+    width: 100px;
+    height: 100px;
     opacity: 0;
-    animation: ic741FadeIn 0.5s ease-out 0.3s forwards;
+    animation: soundSourceAppear 0.6s ease-out 0.2s forwards;
 }
 
-/* IC Body Outline */
-.ic741::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #00f6ff;
-    border-radius: 10px;
-    box-shadow: 
-        0 0 30px rgba(0, 246, 255, 0.9),
-        0 0 60px rgba(0, 246, 255, 0.5),
-        inset 0 0 30px rgba(0, 246, 255, 0.3),
-        inset 0 0 10px rgba(168, 85, 255, 0.2);
-    background: linear-gradient(135deg, rgba(6, 11, 24, 0.95), rgba(10, 15, 31, 0.95));
-    animation: icPulse 2s ease-in-out infinite;
+@keyframes soundSourceAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-/* IC Label Text */
-.ic741::after {
-    content: 'IC 741';
+/* Sound Wave Ripples */
+.sound-ripple {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #00f6ff;
-    font-family: 'Orbitron', monospace;
-    font-size: 18px;
-    font-weight: 900;
-    text-shadow: 
-        0 0 15px rgba(0, 246, 255, 1),
-        0 0 30px rgba(0, 246, 255, 0.8),
-        0 0 45px rgba(0, 246, 255, 0.5);
-    letter-spacing: 3px;
-    animation: textGlow 2s ease-in-out infinite;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #06b6d4;
+    animation: rippleExpand 2s ease-out infinite;
 }
 
-/* Text Glow Animation */
-@keyframes textGlow {
-    0%, 100% {
-        text-shadow: 
-            0 0 15px rgba(0, 246, 255, 1),
-            0 0 30px rgba(0, 246, 255, 0.8),
-            0 0 45px rgba(0, 246, 255, 0.5);
-    }
-    50% {
-        text-shadow: 
-            0 0 25px rgba(0, 246, 255, 1),
-            0 0 50px rgba(0, 246, 255, 1),
-            0 0 75px rgba(0, 246, 255, 0.8);
-    }
+.sound-ripple:nth-child(2) {
+    animation-delay: 0.5s;
 }
 
-/* IC Pins (Left Side) */
-.ic741-pin-left {
-    position: absolute;
-    width: 18px;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, #a855ff, #00f6ff);
-    left: -18px;
-    box-shadow: 
-        0 0 12px rgba(168, 85, 255, 0.8),
-        0 0 24px rgba(0, 246, 255, 0.4);
-    animation: pinPulse 1.5s ease-in-out infinite;
+.sound-ripple:nth-child(3) {
+    animation-delay: 1s;
 }
 
-.ic741-pin-left:nth-child(1) { top: 20%; }
-.ic741-pin-left:nth-child(2) { top: 40%; }
-.ic741-pin-left:nth-child(3) { top: 60%; }
-.ic741-pin-left:nth-child(4) { top: 80%; }
-
-/* IC Pins (Right Side) */
-.ic741-pin-right {
-    position: absolute;
-    width: 18px;
-    height: 4px;
-    background: linear-gradient(90deg, #00f6ff, #a855ff, transparent);
-    right: -18px;
-    box-shadow: 
-        0 0 12px rgba(168, 85, 255, 0.8),
-        0 0 24px rgba(0, 246, 255, 0.4);
-    animation: pinPulse 1.5s ease-in-out infinite;
-}
-
-/* Pin Pulse Animation */
-@keyframes pinPulse {
-    0%, 100% {
-        opacity: 0.7;
-        box-shadow: 
-            0 0 12px rgba(168, 85, 255, 0.8),
-            0 0 24px rgba(0, 246, 255, 0.4);
-    }
-    50% {
+@keyframes rippleExpand {
+    0% {
+        width: 60px;
+        height: 60px;
         opacity: 1;
-        box-shadow: 
-            0 0 20px rgba(168, 85, 255, 1),
-            0 0 40px rgba(0, 246, 255, 0.8);
+        border-width: 3px;
+    }
+    100% {
+        width: 140px;
+        height: 140px;
+        opacity: 0;
+        border-width: 1px;
     }
 }
 
-.ic741-pin-right:nth-child(5) { top: 20%; }
-.ic741-pin-right:nth-child(6) { top: 40%; }
-.ic741-pin-right:nth-child(7) { top: 60%; }
-.ic741-pin-right:nth-child(8) { top: 80%; }
+/* Sound Icon */
+.sound-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: #06b6d4;
+    text-shadow: 
+        0 0 20px rgba(6, 182, 212, 1),
+        0 0 40px rgba(6, 182, 212, 0.6);
+    animation: iconPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
 
 /* ===================================
-   WAVEFORM INPUT (INTO IC)
-/* Waveform Input (INTO IC) */
-.waveform-in {
+   2. TRAVELING WAVE (SOUND TO MIC)
+   ================================== */
+.wave-path-1 {
     position: absolute;
-    left: 5%;
+    left: 12%;
     top: 50%;
-    width: 140px;
-    height: 50px;
-    transform: translateY(-50%);
+    width: 180px;
+    height: 80px;
     opacity: 0;
-    animation: waveformInAnimate 0.8s ease-out 0.7s forwards;
+    animation: wavePath1Appear 0.8s ease-out 0.8s forwards;
 }
 
-/* Waveform Path */
-.waveform-in svg {
+@keyframes wavePath1Appear {
+    to { opacity: 1; }
+}
+
+.wave-path-1 svg {
     width: 100%;
     height: 100%;
-    display: block;
-    margin: auto;
-    filter: 
-        drop-shadow(0 0 12px #00f6ff)
-        drop-shadow(0 0 24px rgba(0, 246, 255, 0.6))
-        drop-shadow(0 0 36px rgba(0, 246, 255, 0.3));
+    filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.8));
 }
 
-/* Waveform Particle Trail */
-.waveform-in::before {
-    content: '';
+.wave-path-1 path {
+    stroke: #06b6d4;
+    stroke-width: 3;
+    fill: none;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: waveDraw 1s ease-out 0.9s forwards;
+}
+
+@keyframes waveDraw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Traveling Particle on Wave */
+.wave-particle {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    background: radial-gradient(circle, #00f6ff, transparent);
+    width: 10px;
+    height: 10px;
+    background: #06b6d4;
     border-radius: 50%;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    box-shadow: 
-        0 0 15px #00f6ff,
-        0 0 30px rgba(0, 246, 255, 0.6);
-    animation: particleTrail 0.8s ease-out 0.7s infinite;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 1);
+    animation: particleTravel1 1.2s ease-in-out 1s forwards;
+    opacity: 0;
 }
 
-@keyframes particleTrail {
+@keyframes particleTravel1 {
     0% {
         left: 0;
+        top: 50%;
         opacity: 1;
     }
     100% {
         left: 100%;
-        opacity: 0;
+        top: 50%;
+        opacity: 1;
     }
 }
 
 /* ===================================
-   WAVEFORM OUTPUT (FROM IC)
+   3. MICROPHONE MODULE
    ================================== */
-.waveform-out {
-    position: absolute;
-    left: calc(25% + 75px);
-    top: 50%;
-    width: 160px;
-    height: 40px;
-    transform: translateY(-50%);
+.microphone {
+    position: relative;
+    width: 80px;
+    height: 100px;
     opacity: 0;
-    animation: waveformOutAnimate 0.6s ease-out 1.3s forwards;
+    animation: micAppear 0.5s ease-out 1.5s forwards;
 }
 
-.waveform-out svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    margin: auto;
-    filter: 
-        drop-shadow(0 0 15px #a855ff)
-        drop-shadow(0 0 30px rgba(168, 85, 255, 0.7))
-        drop-shadow(0 0 45px rgba(168, 85, 255, 0.4));
+@keyframes micAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mic Body */
+.mic-body {
+    position: absolute;
+    width: 50px;
+    height: 70px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    border: 3px solid #06b6d4;
+    border-radius: 25px 25px 10px 10px;
+    box-shadow: 
+        0 0 30px rgba(6, 182, 212, 0.6),
+        inset 0 0 20px rgba(6, 182, 212, 0.2);
+    animation: micGlow 2s ease-in-out 1.6s infinite;
+}
+
+@keyframes micGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 30px rgba(6, 182, 212, 0.6),
+            inset 0 0 20px rgba(6, 182, 212, 0.2);
+    }
+    50% {
+        box-shadow: 
+            0 0 50px rgba(6, 182, 212, 1),
+            inset 0 0 30px rgba(6, 182, 212, 0.4);
+    }
+}
+
+/* Mic Grid Pattern */
+.mic-body::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 45px;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        #06b6d4 3px,
+        #06b6d4 4px
+    );
+    opacity: 0.3;
+    border-radius: 10px;
+}
+
+/* Mic Stand */
+.mic-stand {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 35px;
+    border-left: 3px solid #06b6d4;
+    border-right: 3px solid #06b6d4;
+    border-bottom: 20px solid #06b6d4;
+    border-radius: 0 0 15px 15px;
 }
 
 /* ===================================
-   ESP32 MICROCONTROLLER
+   4. IC741 OPERATIONAL AMPLIFIER
    ================================== */
-.esp32 {
-    position: absolute;
-    width: 140px;
-    height: 100px;
-    left: 52%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.ic741 {
+    position: relative;
+    width: 130px;
+    height: 90px;
     opacity: 0;
-    animation: esp32FadeIn 0.5s ease-out 1.6s forwards;
+    animation: ic741Appear 0.6s ease-out 2.2s forwards;
 }
 
-/* ESP32 PCB Outline */
-.esp32::before {
-    content: '';
+@keyframes ic741Appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotateY(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateY(0deg);
+    }
+}
+
+/* IC Body */
+.ic-body {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 3px solid #a855ff;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    border: 4px solid #a855ff;
     border-radius: 12px;
     box-shadow: 
-        0 0 25px rgba(168, 85, 255, 0.7),
-        inset 0 0 25px rgba(168, 85, 255, 0.3);
-    background: rgba(10, 15, 31, 0.9);
-    animation: esp32Glow 1.5s ease-in-out 1.8s infinite;
+        0 0 40px rgba(168, 85, 255, 0.8),
+        inset 0 0 30px rgba(168, 85, 255, 0.2);
+    animation: icPulse 2s ease-in-out 2.3s infinite;
 }
 
-/* ESP32 Label */
-.esp32::after {
-    content: 'ESP32';
+@keyframes icPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 40px rgba(168, 85, 255, 0.8),
+            inset 0 0 30px rgba(168, 85, 255, 0.2);
+        border-color: #a855ff;
+    }
+    50% {
+        box-shadow: 
+            0 0 60px rgba(168, 85, 255, 1),
+            inset 0 0 50px rgba(168, 85, 255, 0.4);
+        border-color: #c084fc;
+    }
+}
+
+/* IC Label */
+.ic-label {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #a855ff;
     font-family: 'Orbitron', monospace;
-    font-size: 18px;
-    font-weight: 700;
-    text-shadow: 0 0 12px rgba(168, 85, 255, 0.9);
-    letter-spacing: 3px;
-}
-
-/* Wi-Fi Icon */
-.wifi-icon {
-    position: absolute;
-    top: -15px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    opacity: 0;
-    animation: wifiBlink 0.3s ease-in-out 2.0s 5;
-}
-
-.wifi-icon::before {
-    content: '📶';
     font-size: 20px;
-    filter: drop-shadow(0 0 10px #00f6ff);
-}
-
-/* ===================================
-   NEON BEAM (ESP32 → WATCH)
-   ================================== */
-.beam {
-    position: absolute;
-    left: calc(52% + 70px);
-    top: 50%;
-    width: 0;
-    height: 6px;
-    background: linear-gradient(90deg, #a855ff, #00f6ff, #a855ff);
-    box-shadow: 
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 
         0 0 20px rgba(168, 85, 255, 1),
-        0 0 40px rgba(0, 246, 255, 0.8),
-        0 0 60px rgba(168, 85, 255, 0.5),
-        0 -10px 30px rgba(0, 246, 255, 0.4),
-        0 10px 30px rgba(168, 85, 255, 0.4);
-    transform: translateY(-50%);
-    opacity: 0;
-    animation: beamShoot 0.4s ease-out 2.4s forwards;
-    border-radius: 3px;
+        0 0 40px rgba(168, 85, 255, 0.8);
+    animation: labelGlow 2s ease-in-out 2.3s infinite;
 }
 
-/* Beam Core Glow */
-.beam::before {
-    content: '';
+@keyframes labelGlow {
+    0%, 100% {
+        text-shadow: 
+            0 0 20px rgba(168, 85, 255, 1),
+            0 0 40px rgba(168, 85, 255, 0.8);
+    }
+    50% {
+        text-shadow: 
+            0 0 30px rgba(168, 85, 255, 1),
+            0 0 60px rgba(168, 85, 255, 1);
+    }
+}
+
+/* IC Pins */
+.ic-pins-left,
+.ic-pins-right {
     position: absolute;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, #ffffff, #00f6ff, #ffffff);
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    box-shadow: 0 0 10px #ffffff;
+    top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ic-pins-left {
+    left: -15px;
+}
+
+.ic-pins-right {
+    right: -15px;
+}
+
+.ic-pin {
+    width: 15px;
+    height: 4px;
+    background: linear-gradient(90deg, #a855ff, #06b6d4);
+    box-shadow: 0 0 10px rgba(168, 85, 255, 0.8);
+    animation: pinGlow 1.5s ease-in-out infinite;
+}
+
+.ic-pin:nth-child(even) {
+    animation-delay: 0.3s;
+}
+
+@keyframes pinGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(168, 85, 255, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(168, 85, 255, 1);
+    }
 }
 
 /* ===================================
-   WATCH OUTLINE
+   5. ESP32 MICROCONTROLLER
    ================================== */
-.watch {
-    position: absolute;
-    left: 75%;
-    top: 50%;
-    width: 120px;
-    height: 120px;
-    transform: translate(-50%, -50%) scale(0);
+.esp32 {
+    position: relative;
+    width: 140px;
+    height: 110px;
     opacity: 0;
-    animation: 
-        watchAppear 0.3s ease-out 2.6s forwards,
-        watchRotate 0.6s ease-in-out 2.9s forwards,
-        watchFlash 0.2s ease-in-out 3.3s 3;
-    filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.5));
+    animation: esp32Appear 0.6s ease-out 3s forwards;
 }
 
-/* Watch Circle */
-.watch::before {
-    content: '';
+@keyframes esp32Appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ESP32 PCB */
+.esp32-board {
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(6, 182, 212, 0.3), rgba(6, 11, 24, 0.98) 60%);
+    background: linear-gradient(135deg, #064e3b, #065f46);
+    border: 4px solid #10b981;
+    border-radius: 10px;
     box-shadow: 
-        0 0 0 6px #00f6ff,
-        0 0 0 7px rgba(168, 85, 255, 0.6),
-        0 0 50px rgba(0, 246, 255, 0.8),
-        0 0 100px rgba(168, 85, 255, 0.5),
-        inset 0 0 40px rgba(0, 246, 255, 0.3),
-        inset 0 0 20px rgba(168, 85, 255, 0.4);
+        0 0 40px rgba(16, 185, 129, 0.6),
+        inset 0 0 20px rgba(16, 185, 129, 0.2);
+    animation: esp32Glow 2s ease-in-out 3.1s infinite;
 }
 
-/* Watch Center Display */
-.watch::after {
-    content: '';
+@keyframes esp32Glow {
+    0%, 100% {
+        box-shadow: 
+            0 0 40px rgba(16, 185, 129, 0.6),
+            inset 0 0 20px rgba(16, 185, 129, 0.2);
+    }
+    50% {
+        box-shadow: 
+            0 0 60px rgba(16, 185, 129, 1),
+            inset 0 0 40px rgba(16, 185, 129, 0.4);
+    }
+}
+
+/* ESP32 Chip */
+.esp32-chip {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 35px;
-    height: 35px;
-    background: radial-gradient(circle, #00f6ff, #a855ff);
-    border-radius: 50%;
-    box-shadow: 
-        0 0 20px rgba(0, 246, 255, 1),
-        0 0 40px rgba(168, 85, 255, 0.8),
-        inset 0 0 15px rgba(255, 255, 255, 0.5);
-    animation: centerPulse 1s ease-in-out 2.9s infinite;
+    width: 60px;
+    height: 60px;
+    background: #1e293b;
+    border: 2px solid #06b6d4;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
 }
 
-@keyframes centerPulse {
+/* ESP32 Label */
+.esp32-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #10b981;
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(16, 185, 129, 1);
+}
+
+/* WiFi Icon */
+.wifi-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    animation: wifiBlink 0.3s ease-in 3.2s 5 forwards;
+}
+
+@keyframes wifiBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.wifi-indicator::before,
+.wifi-indicator::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid #06b6d4;
+}
+
+.wifi-indicator::before {
+    width: 12px;
+    height: 12px;
+    top: 4px;
+    left: 4px;
+    border-top: none;
+    border-left: none;
+    transform: rotate(-45deg);
+}
+
+.wifi-indicator::after {
+    width: 8px;
+    height: 8px;
+    top: 6px;
+    left: 6px;
+    border-top: none;
+    border-left: none;
+    transform: rotate(-45deg);
+}
+
+/* ===================================
+   6. SMARTWATCH NOTIFICATION
+   ================================== */
+.smartwatch {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+    animation: watchAppear 0.7s ease-out 3.8s forwards;
+}
+
+@keyframes watchAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(-180deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Watch Face */
+.watch-face {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, #1e293b, #0f172a);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 0 6px #3b82f6,
+        0 0 0 8px rgba(59, 130, 246, 0.4),
+        0 0 40px rgba(59, 130, 246, 0.8);
+    animation: watchGlow 2s ease-in-out 3.9s infinite;
+}
+
+@keyframes watchGlow {
     0%, 100% {
         box-shadow: 
-            0 0 20px rgba(0, 246, 255, 1),
-            0 0 40px rgba(168, 85, 255, 0.8),
-            inset 0 0 15px rgba(255, 255, 255, 0.5);
-        transform: translate(-50%, -50%) scale(1);
+            0 0 0 6px #3b82f6,
+            0 0 0 8px rgba(59, 130, 246, 0.4),
+            0 0 40px rgba(59, 130, 246, 0.8);
     }
     50% {
         box-shadow: 
-            0 0 30px rgba(0, 246, 255, 1),
-            0 0 60px rgba(168, 85, 255, 1),
-            inset 0 0 25px rgba(255, 255, 255, 0.8);
-        transform: translate(-50%, -50%) scale(1.15);
+            0 0 0 6px #60a5fa,
+            0 0 0 10px rgba(59, 130, 246, 0.6),
+            0 0 60px rgba(59, 130, 246, 1);
+    }
+}
+
+/* Notification Bell */
+.notification-bell {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: #3b82f6;
+    text-shadow: 0 0 20px rgba(59, 130, 246, 1);
+    animation: bellRing 0.5s ease-in-out 4s 3;
+}
+
+@keyframes bellRing {
+    0%, 100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    25% {
+        transform: translate(-50%, -50%) rotate(-15deg);
+    }
+    75% {
+        transform: translate(-50%, -50%) rotate(15deg);
     }
 }
 
 /* Watch Straps */
-.watch-strap-left,
-.watch-strap-right {
+.watch-strap-top,
+.watch-strap-bottom {
     position: absolute;
-    top: 50%;
     width: 35px;
     height: 25px;
-    transform: translateY(-50%);
-    box-shadow: 0 0 15px rgba(168, 85, 255, 0.7);
-    border: 2px solid rgba(168, 85, 255, 0.5);
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #334155, #1e293b);
+    border: 2px solid #3b82f6;
 }
 
-.watch-strap-left {
-    right: 100%;
-    margin-right: -2px;
-    border-radius: 12px 0 0 12px;
-    background: linear-gradient(90deg, rgba(168, 85, 255, 0.3), rgba(168, 85, 255, 0.8));
+.watch-strap-top {
+    top: 0;
+    border-radius: 15px 15px 0 0;
+    border-bottom: none;
 }
 
-.watch-strap-right {
-    left: 100%;
-    margin-left: -2px;
-    border-radius: 0 12px 12px 0;
-    background: linear-gradient(90deg, rgba(168, 85, 255, 0.8), rgba(168, 85, 255, 0.3));
+.watch-strap-bottom {
+    bottom: 0;
+    border-radius: 0 0 15px 15px;
+    border-top: none;
 }
 
 /* ===================================
-   SCREEN FLASH EFFECT
+   CONNECTING LINES & PARTICLES
    ================================== */
-.screen-flash {
+.connection-line {
     position: absolute;
-    top: 0;
-    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #06b6d4, rgba(6, 182, 212, 0.8), #06b6d4);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.9);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Line from Mic to IC741 */
+.line-1 {
+    left: 18%;
+    width: 18%;
+    animation: lineAppear 0.5s ease-out 2s forwards;
+}
+
+.line-1::after {
+    content: '▶';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #06b6d4;
+    font-size: 16px;
+    text-shadow: 0 0 15px rgba(6, 182, 212, 1);
+    opacity: 0.8;
+}
+
+/* Line from IC741 to ESP32 */
+.line-2 {
+    left: 40%;
+    width: 18%;
+    animation: lineAppear 0.5s ease-out 2.8s forwards;
+}
+
+.line-2::after {
+    content: '▶';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #06b6d4;
+    font-size: 16px;
+    text-shadow: 0 0 15px rgba(6, 182, 212, 1);
+    opacity: 0.8;
+}
+
+/* Line from ESP32 to Watch */
+.line-3 {
+    left: 62%;
+    width: 18%;
+    animation: lineAppear 0.5s ease-out 3.6s forwards;
+}
+
+.line-3::after {
+    content: '▶';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #06b6d4;
+    font-size: 16px;
+    text-shadow: 0 0 15px rgba(6, 182, 212, 1);
+    opacity: 0.8;
+}
+
+@keyframes lineAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) scaleX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scaleX(1);
+    }
+}
+
+/* Traveling Data Particles */
+.data-particle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #06b6d4, #0891b2);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 1), 0 0 40px rgba(6, 182, 212, 0.6);
+    top: 50%;
+    opacity: 0;
+    z-index: 2;
+}
+
+.data-particle-1 {
+    left: 18%;
+    animation: dataFlow1 1.2s ease-in-out 2.1s forwards;
+}
+
+.data-particle-2 {
+    left: 40%;
+    animation: dataFlow2 1.2s ease-in-out 2.9s forwards;
+}
+
+.data-particle-3 {
+    left: 62%;
+    animation: dataFlow3 1.2s ease-in-out 3.7s forwards;
+}
+
+@keyframes dataFlow1 {
+    0% {
+        transform: translateX(0) translateY(-50%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(calc(18vw)) translateY(-50%);
+        opacity: 0;
+    }
+}
+
+@keyframes dataFlow2 {
+    0% {
+        transform: translateX(0) translateY(-50%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(calc(18vw)) translateY(-50%);
+        opacity: 0;
+    }
+}
+
+@keyframes dataFlow3 {
+    0% {
+        transform: translateX(0) translateY(-50%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(calc(18vw)) translateY(-50%);
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   FINAL WEBSITE FLASH
+   ================================== */
+.website-flash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, #ffffff, #00f6ff);
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 70%);
     opacity: 0;
-    animation: flashScreen 0.3s ease-out 3.5s forwards;
-    pointer-events: none;
+    animation: finalFlash 0.6s ease-out 4.8s forwards;
 }
 
-/* ===================================
-   KEYFRAME ANIMATIONS
-   ================================== */
-
-/* IC Pulse Animation */
-@keyframes icPulse {
-    0%, 100% {
-        box-shadow: 
-            0 0 30px rgba(0, 246, 255, 0.9),
-            0 0 60px rgba(0, 246, 255, 0.5),
-            inset 0 0 30px rgba(0, 246, 255, 0.3),
-            inset 0 0 10px rgba(168, 85, 255, 0.2);
-    }
-    50% {
-        box-shadow: 
-            0 0 50px rgba(0, 246, 255, 1),
-            0 0 100px rgba(0, 246, 255, 0.7),
-            inset 0 0 50px rgba(0, 246, 255, 0.5),
-            inset 0 0 20px rgba(168, 85, 255, 0.4);
-    }
-}
-
-/* IC 741 Fade In */
-@keyframes ic741FadeIn {
+@keyframes finalFlash {
     0% {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.5);
     }
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-/* Waveform In Animation */
-@keyframes waveformInAnimate {
-    0% {
-        opacity: 0;
-        transform: translateY(-50%) translateX(-50px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(-50%) translateX(0);
-    }
-}
-
-/* Waveform Out Animation */
-@keyframes waveformOutAnimate {
-    0% {
-        opacity: 0;
-        transform: translateY(-50%) translateX(-30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(-50%) translateX(0);
-    }
-}
-
-/* ESP32 Fade In */
-@keyframes esp32FadeIn {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.7);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-/* ESP32 Glow Pulse */
-@keyframes esp32Glow {
-    0%, 100% {
-        box-shadow: 
-            0 0 25px rgba(168, 85, 255, 0.7),
-            inset 0 0 25px rgba(168, 85, 255, 0.3);
-    }
-    50% {
-        box-shadow: 
-            0 0 40px rgba(168, 85, 255, 1),
-            inset 0 0 40px rgba(168, 85, 255, 0.5);
-    }
-}
-
-/* Wi-Fi Blink */
-@keyframes wifiBlink {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-/* Beam Shoot */
-@keyframes beamShoot {
-    0% {
-        width: 0;
-        opacity: 0;
-    }
     50% {
         opacity: 1;
-    }
-    100% {
-        width: 120px;
-        opacity: 1;
-    }
-}
-
-/* Watch Appear */
-@keyframes watchAppear {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-/* Watch Rotate */
-@keyframes watchRotate {
-    0% {
-        transform: translate(-50%, -50%) scale(1) rotate(0deg);
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1) rotate(360deg);
-    }
-}
-
-/* Watch Flash */
-@keyframes watchFlash {
-    0%, 100% {
-        filter: brightness(1);
-        transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-        filter: brightness(5) drop-shadow(0 0 50px #00f6ff) drop-shadow(0 0 100px #a855ff);
-        transform: translate(-50%, -50%) scale(1.15);
-    }
-}
-
-/* Screen Flash */
-@keyframes flashScreen {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1.5);
     }
     100% {
         opacity: 0;
-    }
-}
-
-/* Overlay Fade Out */
-@keyframes overlayFadeOut {
-    0% {
-        opacity: 1;
-        visibility: visible;
-    }
-    100% {
-        opacity: 0;
-        visibility: hidden;
+        transform: translate(-50%, -50%) scale(2);
     }
 }
 
 /* ===================================
    RESPONSIVE DESIGN
    ================================== */
-@media (max-width: 768px) {
-    .ic741 {
-        width: 90px;
-        height: 60px;
-        left: 25%;
+@media (max-width: 1200px) {
+    .signal-flow {
+        max-width: 1000px;
+        padding: 0 1rem;
     }
     
-    .ic741::after {
-        font-size: 12px;
+    .ic741, .esp32 {
+        width: 110px;
+        height: 85px;
+    }
+    
+    .smartwatch {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .sound-source {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .microphone {
+        width: 70px;
+        height: 90px;
+    }
+}
+
+@media (max-width: 768px) {
+    .signal-flow {
+        flex-direction: column;
+        height: auto;
+        min-height: 70vh;
+        max-height: 75vh;
+        justify-content: space-evenly;
+        padding: 4rem 1rem 4rem 1rem;
+        gap: 1.5rem;
+    }
+    
+    /* Make all components larger and centered on mobile */
+    .sound-source,
+    .microphone,
+    .ic741,
+    .esp32,
+    .smartwatch {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        margin: 0 auto;
+    }
+    
+    .sound-source {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .microphone {
+        width: 80px;
+        height: 100px;
+    }
+    
+    .ic741 {
+        width: 140px;
+        height: 100px;
     }
     
     .esp32 {
-        width: 110px;
-        height: 80px;
+        width: 150px;
+        height: 120px;
     }
     
-    .esp32::after {
-        font-size: 14px;
+    .smartwatch {
+        width: 130px;
+        height: 130px;
     }
     
-    .watch {
-        width: 80px;
-        height: 80px;
-        left: 75%;
+    /* Replace horizontal lines with vertical animated arrows */
+    .connection-line {
+        display: block !important;
+        position: relative !important;
+        width: 4px !important;
+        height: 60px !important;
+        left: 50% !important;
+        top: auto !important;
+        transform: translateX(-50%) !important;
+        background: linear-gradient(180deg, #06b6d4, rgba(6, 182, 212, 0.8), #06b6d4) !important;
+        margin: -1rem auto;
     }
     
-    .watch::after {
-        font-size: 24px;
+    .connection-line::after {
+        content: '▼' !important;
+        position: absolute !important;
+        bottom: -15px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        color: #06b6d4 !important;
+        font-size: 18px !important;
+        text-shadow: 0 0 15px rgba(6, 182, 212, 1) !important;
+        opacity: 0.8 !important;
+        right: auto !important;
+        top: auto !important;
     }
     
-    .waveform-in,
-    .waveform-out {
-        width: 100px;
-        height: 40px;
+    .line-1,
+    .line-2,
+    .line-3 {
+        animation: lineAppearVertical 0.5s ease-out forwards !important;
     }
     
-    .beam {
-        width: 80px;
+    .line-1 {
+        animation-delay: 2s !important;
+    }
+    
+    .line-2 {
+        animation-delay: 2.8s !important;
+    }
+    
+    .line-3 {
+        animation-delay: 3.6s !important;
+    }
+    
+    @keyframes lineAppearVertical {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) scaleY(0);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(-50%) scaleY(1);
+        }
+    }
+    
+    /* Vertical traveling particles */
+    .data-particle {
+        width: 14px !important;
+        height: 14px !important;
+        left: 50% !important;
+        top: auto !important;
+        position: relative !important;
+        margin: -3rem auto -2rem;
+    }
+    
+    .data-particle-1 {
+        animation: dataFlowVertical 1.2s ease-in-out 2.1s forwards !important;
+    }
+    
+    .data-particle-2 {
+        animation: dataFlowVertical 1.2s ease-in-out 2.9s forwards !important;
+    }
+    
+    .data-particle-3 {
+        animation: dataFlowVertical 1.2s ease-in-out 3.7s forwards !important;
+    }
+    
+    @keyframes dataFlowVertical {
+        0% {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-50%) translateY(60px);
+            opacity: 0;
+        }
+    }
+    
+    /* Make wave path vertical and visible on mobile */
+    .wave-path-1 {
+        display: block !important;
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        width: 80px !important;
+        height: 100px !important;
+        margin: -1rem auto;
+        transform: rotate(90deg) !important;
+    }
+    
+    .wave-path-1 svg {
+        filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.9));
+    }
+    
+    .wave-particle {
+        width: 14px !important;
+        height: 14px !important;
+        box-shadow: 0 0 20px rgba(6, 182, 212, 1);
+    }
+    
+    /* Adjust component details for mobile */
+    .ic-label {
+        font-size: 18px;
+    }
+    
+    .esp32-label {
+        font-size: 13px;
+    }
+    
+    .notification-bell {
+        font-size: 45px;
+    }
+    
+    .sound-icon {
+        font-size: 45px;
     }
 }
 
 @media (max-width: 480px) {
-    .ic741 {
-        width: 70px;
-        height: 50px;
-        left: 20%;
+    .signal-flow {
+        padding: 2rem 0.5rem;
     }
     
-    .ic741::after {
-        font-size: 10px;
-        letter-spacing: 1px;
+    .ic741 {
+        width: 120px;
+        height: 85px;
     }
     
     .esp32 {
-        width: 90px;
-        height: 65px;
+        width: 130px;
+        height: 110px;
     }
     
-    .esp32::after {
-        font-size: 12px;
-        letter-spacing: 2px;
+    .smartwatch {
+        width: 110px;
+        height: 110px;
     }
     
-    .watch {
-        width: 60px;
-        height: 60px;
+    .ic-label {
+        font-size: 16px;
     }
     
-    .watch::after {
-        font-size: 20px;
+    .notification-bell,
+    .sound-icon {
+        font-size: 40px;
     }
 }
