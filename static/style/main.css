@@ -924,10 +924,10 @@ body::before {
 
 .staff-photo {
     position: relative;
-    width: 150px;
+    width: 120px;
     height: 150px;
     margin: 0 auto 1.5rem;
-    border-radius: 50%;
+    border-radius: 50% / 60%;
     overflow: hidden;
     border: 3px solid var(--primary-purple);
     box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
