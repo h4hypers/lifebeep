@@ -575,6 +575,118 @@ body::before {
     line-height: 1.8;
 }
 
+/* ===================================
+   PRODUCT SHOWCASE SECTION
+   ================================== */
+.product-section {
+    background: linear-gradient(135deg, rgba(6, 11, 24, 0.95), rgba(10, 15, 31, 0.9));
+    position: relative;
+    overflow: hidden;
+}
+
+.product-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+    margin: 3rem 0;
+}
+
+.product-image-card {
+    position: relative;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+}
+
+.product-image-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 40px rgba(0, 246, 255, 0.3);
+}
+
+.product-image-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease;
+}
+
+.product-image-card:hover img {
+    transform: scale(1.05);
+}
+
+.product-caption {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 2px solid rgba(0, 246, 255, 0.3);
+}
+
+.product-caption h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: var(--primary-cyan);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 246, 255, 0.5);
+}
+
+.product-caption p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.product-features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.feature-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(0, 246, 255, 0.1);
+    border: 2px solid rgba(0, 246, 255, 0.3);
+    border-radius: 50px;
+    color: var(--primary-cyan);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.feature-badge:hover {
+    background: rgba(0, 246, 255, 0.2);
+    border-color: var(--primary-cyan);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 246, 255, 0.3);
+}
+
+.feature-badge i {
+    color: var(--primary-purple);
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .product-showcase {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .product-image-card {
+        padding: 1rem;
+    }
+    
+    .feature-badge {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
 /* Problem Section */
 .problem-grid {
     display: grid;
@@ -909,9 +1021,9 @@ body::before {
 .team-photo {
     position: relative;
     width: 120px;
-    height: 120px;
+    height: 150px;
     margin: 0 auto 1rem;
-    border-radius: 50%;
+    border-radius: 50% / 60%;
     overflow: hidden;
     border: 2px solid var(--primary-cyan);
     box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
@@ -1119,27 +1231,27 @@ body::before {
 
 .contact-card {
     text-align: center;
-    padding: 2rem 1.5rem;
+    padding: 0.9rem 0.8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .contact-icon-wrapper {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(6, 182, 212, 0.2));
     border-radius: 50%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     border: 2px solid var(--primary-purple);
     box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
 }
 
 .contact-icon-wrapper i {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     background: linear-gradient(135deg, var(--primary-purple), var(--primary-cyan));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1148,8 +1260,8 @@ body::before {
 
 .contact-card h3 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
     color: var(--text-light);
 }
 
@@ -1161,15 +1273,15 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1rem;
-    margin: 0.3rem 0;
+    gap: 0.35rem;
+    padding: 0.35rem 0.6rem;
+    margin: 0.2rem 0;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border-radius: 6px;
     color: var(--primary-cyan);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     transition: all 0.3s ease;
     word-break: break-all;
 }
@@ -1183,7 +1295,7 @@ body::before {
 }
 
 .contact-detail i {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--primary-purple);
 }
 

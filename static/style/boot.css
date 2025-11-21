@@ -32,7 +32,7 @@ body.boot-active {
     position: absolute;
     width: 120px;
     height: 80px;
-    left: 30%;
+    left: 25%;
     top: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
@@ -148,10 +148,10 @@ body.boot-active {
 /* Waveform Input (INTO IC) */
 .waveform-in {
     position: absolute;
-    left: 10%;
+    left: 5%;
     top: 50%;
-    width: 150px;
-    height: 60px;
+    width: 140px;
+    height: 50px;
     transform: translateY(-50%);
     opacity: 0;
     animation: waveformInAnimate 0.8s ease-out 0.7s forwards;
@@ -161,6 +161,8 @@ body.boot-active {
 .waveform-in svg {
     width: 100%;
     height: 100%;
+    display: block;
+    margin: auto;
     filter: 
         drop-shadow(0 0 12px #00f6ff)
         drop-shadow(0 0 24px rgba(0, 246, 255, 0.6))
@@ -200,10 +202,10 @@ body.boot-active {
    ================================== */
 .waveform-out {
     position: absolute;
-    left: calc(30% + 60px);
+    left: calc(25% + 75px);
     top: 50%;
-    width: 120px;
-    height: 50px;
+    width: 160px;
+    height: 40px;
     transform: translateY(-50%);
     opacity: 0;
     animation: waveformOutAnimate 0.6s ease-out 1.3s forwards;
@@ -212,7 +214,12 @@ body.boot-active {
 .waveform-out svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 10px #a855ff);
+    display: block;
+    margin: auto;
+    filter: 
+        drop-shadow(0 0 15px #a855ff)
+        drop-shadow(0 0 30px rgba(168, 85, 255, 0.7))
+        drop-shadow(0 0 45px rgba(168, 85, 255, 0.4));
 }
 
 /* ===================================
@@ -222,7 +229,7 @@ body.boot-active {
     position: absolute;
     width: 140px;
     height: 100px;
-    left: 50%;
+    left: 52%;
     top: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
@@ -281,7 +288,7 @@ body.boot-active {
    ================================== */
 .beam {
     position: absolute;
-    left: calc(50% + 70px);
+    left: calc(52% + 70px);
     top: 50%;
     width: 0;
     height: 6px;
@@ -316,16 +323,17 @@ body.boot-active {
    ================================== */
 .watch {
     position: absolute;
-    left: 70%;
+    left: 75%;
     top: 50%;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
     animation: 
         watchAppear 0.3s ease-out 2.6s forwards,
-        watchRotate 0.5s ease-in-out 2.9s forwards,
+        watchRotate 0.6s ease-in-out 2.9s forwards,
         watchFlash 0.2s ease-in-out 3.3s 3;
+    filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.5));
 }
 
 /* Watch Circle */
@@ -334,25 +342,50 @@ body.boot-active {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 5px solid #00f6ff;
     border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(6, 182, 212, 0.3), rgba(6, 11, 24, 0.98) 60%);
     box-shadow: 
-        0 0 40px rgba(0, 246, 255, 1),
-        0 0 80px rgba(0, 246, 255, 0.6),
-        inset 0 0 30px rgba(0, 246, 255, 0.4),
-        inset 0 0 15px rgba(168, 85, 255, 0.3);
-    background: radial-gradient(circle, rgba(6, 11, 24, 0.95), rgba(10, 15, 31, 0.8));
+        0 0 0 6px #00f6ff,
+        0 0 0 7px rgba(168, 85, 255, 0.6),
+        0 0 50px rgba(0, 246, 255, 0.8),
+        0 0 100px rgba(168, 85, 255, 0.5),
+        inset 0 0 40px rgba(0, 246, 255, 0.3),
+        inset 0 0 20px rgba(168, 85, 255, 0.4);
 }
 
-/* Watch Alert Icon */
+/* Watch Center Display */
 .watch::after {
-    content: '🔔';
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 30px;
-    filter: drop-shadow(0 0 15px #00f6ff);
+    width: 35px;
+    height: 35px;
+    background: radial-gradient(circle, #00f6ff, #a855ff);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 20px rgba(0, 246, 255, 1),
+        0 0 40px rgba(168, 85, 255, 0.8),
+        inset 0 0 15px rgba(255, 255, 255, 0.5);
+    animation: centerPulse 1s ease-in-out 2.9s infinite;
+}
+
+@keyframes centerPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(0, 246, 255, 1),
+            0 0 40px rgba(168, 85, 255, 0.8),
+            inset 0 0 15px rgba(255, 255, 255, 0.5);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        box-shadow: 
+            0 0 30px rgba(0, 246, 255, 1),
+            0 0 60px rgba(168, 85, 255, 1),
+            inset 0 0 25px rgba(255, 255, 255, 0.8);
+        transform: translate(-50%, -50%) scale(1.15);
+    }
 }
 
 /* Watch Straps */
@@ -360,22 +393,25 @@ body.boot-active {
 .watch-strap-right {
     position: absolute;
     top: 50%;
-    width: 40px;
-    height: 20px;
-    background: linear-gradient(90deg, transparent, #a855ff);
+    width: 35px;
+    height: 25px;
     transform: translateY(-50%);
-    box-shadow: 0 0 10px rgba(168, 85, 255, 0.6);
+    box-shadow: 0 0 15px rgba(168, 85, 255, 0.7);
+    border: 2px solid rgba(168, 85, 255, 0.5);
 }
 
 .watch-strap-left {
     right: 100%;
-    border-radius: 10px 0 0 10px;
+    margin-right: -2px;
+    border-radius: 12px 0 0 12px;
+    background: linear-gradient(90deg, rgba(168, 85, 255, 0.3), rgba(168, 85, 255, 0.8));
 }
 
 .watch-strap-right {
     left: 100%;
-    border-radius: 0 10px 10px 0;
-    background: linear-gradient(90deg, #a855ff, transparent);
+    margin-left: -2px;
+    border-radius: 0 12px 12px 0;
+    background: linear-gradient(90deg, rgba(168, 85, 255, 0.8), rgba(168, 85, 255, 0.3));
 }
 
 /* ===================================
