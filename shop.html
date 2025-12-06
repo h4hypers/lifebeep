@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop LifeBeep Products</title>
+    <link rel="stylesheet" href="static/style/main.css">
+    <link rel="stylesheet" href="static/style/shop.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-container"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <span class="logo-text">Life<span class="highlight">Beep</span></span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+            </ul>
+            <div class="cart-icon" id="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-container">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Shop</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Catalog Section -->
+    <section id="products" class="section products-catalog-section">
+        <div class="container">
+            <h2 class="section-title">Our <span class="highlight">Products</span></h2>
+            <p class="section-subtitle">Choose from our range of cost-effective hearing assistance devices</p>
+
+            <div class="products-grid">
+                <!-- Product 1: Complete Watch -->
+                <div class="product-card glass-card">
+                    <div class="product-card-badge">
+                        <i class="fas fa-bolt"></i> Best Seller
+                    </div>
+                    <div class="product-card-image">
+                        <img src="static/images/product image1.jpg" alt="LifeBeep Smartwatch">
+                    </div>
+                    <h3 class="product-card-title">LifeBeep Smartwatch</h3>
+                    <p class="product-card-desc">Complete ready-to-use sound alert smartwatch</p>
+                    <div class="product-card-price">
+                        <span class="price-current">₹899</span>
+                        <span class="price-original">₹1,499</span>
+                    </div>
+                    <a href="product.html?id=watch" class="btn btn-product-view">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                </div>
+
+                <!-- Product 2: Chip Module -->
+                <div class="product-card glass-card">
+                    <div class="product-card-badge tech">
+                        <i class="fas fa-microchip"></i> DIY Kit
+                    </div>
+                    <div class="product-card-image">
+                        <img src="static/images/product image2.jpg" alt="Chip Module">
+                    </div>
+                    <h3 class="product-card-title">IC741 + ESP32 Chip Module</h3>
+                    <p class="product-card-desc">Development board for custom projects</p>
+                    <div class="product-card-price">
+                        <span class="price-current">₹599</span>
+                        <span class="price-original">₹899</span>
+                    </div>
+                    <a href="product.html?id=chip" class="btn btn-product-view">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                </div>
+
+                <!-- Product 3: Strap (Multi-color) -->
+                <div class="product-card glass-card">
+                    <div class="product-card-badge accessory">
+                        <i class="fas fa-palette"></i> Multi-Color
+                    </div>
+                    <div class="product-card-image">
+                        <img src="static/images/product image1.jpg" alt="Watch Strap">
+                        <div class="color-options">
+                            <span class="color-dot" style="background: #ff6b35;"></span>
+                            <span class="color-dot" style="background: #f7b801;"></span>
+                            <span class="color-dot" style="background: #00b4d8;"></span>
+                        </div>
+                    </div>
+                    <h3 class="product-card-title">Watch Strap</h3>
+                    <p class="product-card-desc">Silicone strap in orange, yellow, blue colors</p>
+                    <div class="product-card-price">
+                        <span class="price-current">₹99</span>
+                    </div>
+                    <a href="product.html?id=strap" class="btn btn-product-view">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                </div>
+
+                <!-- Product 4: Battery -->
+                <div class="product-card glass-card">
+                    <div class="product-card-badge accessory">
+                        <i class="fas fa-battery-full"></i> Rechargeable
+                    </div>
+                    <div class="product-card-image">
+                        <i class="fas fa-battery-three-quarters product-placeholder-icon"></i>
+                    </div>
+                    <h3 class="product-card-title">Rechargeable Battery</h3>
+                    <p class="product-card-desc">3.7V Li-ion battery with long life</p>
+                    <div class="product-card-price">
+                        <span class="price-current">₹149</span>
+                    </div>
+                    <a href="product.html?id=battery" class="btn btn-product-view">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                </div>
+
+                <!-- Product 5: USB Charger -->
+                <div class="product-card glass-card">
+                    <div class="product-card-badge accessory">
+                        <i class="fas fa-plug"></i> Fast Charge
+                    </div>
+                    <div class="product-card-image">
+                        <i class="fas fa-charging-station product-placeholder-icon"></i>
+                    </div>
+                    <h3 class="product-card-title">USB Charging Cable</h3>
+                    <p class="product-card-desc">Type-C fast charging cable included</p>
+                    <div class="product-card-price">
+                        <span class="price-current">₹79</span>
+                    </div>
+                    <a href="product.html?id=charger" class="btn btn-product-view">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                </div>
+
+                <!-- Product 6: Protective Case -->
+                <div class="product-card glass-card">
+                    <div class="product-card-badge accessory">
+                        <i class="fas fa-shield-alt"></i> Protection
+                    </div>
+                    <div class="product-card-image">
+                        <i class="fas fa-box product-placeholder-icon"></i>
+                    </div>
+                    <h3 class="product-card-title">Protective Case</h3>
+                    <p class="product-card-desc">Durable case for safe storage</p>
+                    <div class="product-card-price">
+                        <span class="price-current">₹199</span>
+                    </div>
+                    <a href="product.html?id=case" class="btn btn-product-view">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                </div>
+
+                <!-- Product 7: Watch Holder/Stand -->
+                <div class="product-card glass-card">
+                    <div class="product-card-badge accessory">
+                        <i class="fas fa-store"></i> Display
+                    </div>
+                    <div class="product-card-image">
+                        <i class="fas fa-stop product-placeholder-icon"></i>
+                    </div>
+                    <h3 class="product-card-title">Watch Display Stand</h3>
+                    <p class="product-card-desc">Premium acrylic stand for display</p>
+                    <div class="product-card-price">
+                        <span class="price-current">₹249</span>
+                    </div>
+                    <a href="product.html?id=stand" class="btn btn-product-view">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                </div>
+
+                <!-- Product 8: Coming Soon -->
+                <div class="product-card glass-card coming-soon-card">
+                    <div class="coming-soon-overlay">
+                        <i class="fas fa-clock"></i>
+                        <h3>More Products</h3>
+                        <p>Coming Soon</p>
+                    </div>
+                    <div class="product-card-image">
+                        <i class="fas fa-box-open product-placeholder-icon"></i>
+                    </div>
+                    <h3 class="product-card-title">Accessories Pack</h3>
+                    <p class="product-card-desc">Bundle of essential accessories</p>
+                    <div class="product-card-price">
+                        <span class="price-current">TBA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2><i class="fas fa-shopping-cart"></i> Shopping Cart</h2>
+                <span class="close-modal" id="close-cart">&times;</span>
+            </div>
+            <div class="modal-body" id="cart-items">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="modal-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-price">₹0</span>
+                </div>
+                <button class="btn btn-checkout" id="checkout-btn-catalog" disabled>
+                    <i class="fas fa-lock"></i> Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="static/script/main.js"></script>
+    <script src="static/script/shop.js"></script>
+</body>
+</html>
